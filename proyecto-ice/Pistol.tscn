@@ -1,12 +1,25 @@
 [gd_scene format=3 uid="uid://c4dnggjqsimfw"]
 
-[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://icon.svg" id="1_1e1q2"]
+[ext_resource type="Texture2D" uid="uid://cgwsq1lqsy61d" path="res://Assets/Sprites/Shoot1.png" id="1_bc0en"]
+[ext_resource type="Texture2D" uid="uid://dyvayiqbxajh6" path="res://Assets/Sprites/Shoot2.png" id="2_vh0nm"]
+[ext_resource type="Texture2D" uid="uid://cq0luv4vbd1hj" path="res://Assets/Sprites/Shoot3.png" id="3_ywdml"]
+[ext_resource type="Texture2D" uid="uid://c5ob5xj0h3w1q" path="res://Assets/Sprites/Shoot4.png" id="4_5477g"]
+[ext_resource type="Texture2D" uid="uid://lg8q3lvcjm8e" path="res://Assets/Sprites/Idle.png" id="5_ijc8j"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n8kc8"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_1e1q2")
+"texture": ExtResource("1_bc0en")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_vh0nm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ywdml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5477g")
 }],
 "loop": true,
 "name": &"Shoot",
@@ -14,7 +27,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_1e1q2")
+"texture": ExtResource("5_ijc8j")
 }],
 "loop": true,
 "name": &"default",
@@ -39,5 +52,6 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control" unique_id=1573476660]
+texture_filter = 3
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_n8kc8")
-animation = &"Shoot"
