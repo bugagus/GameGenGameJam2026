@@ -1,51 +1,29 @@
+class_name Player
 extends CharacterBody3D
 
+const mouse_sensitivity : float = 0.05
 
-const SPEED = 10.0
-const ACCEL = 5
-const DEACCEL = 5
-const JUMP_VELOCITY = 4.5
-const MOUSE_SENSIBILITY = 0.5
-
-@onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
-@onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer3D
-@onready var collision: CollisionShape3D = $Collision
-var cur_speed = 0
-var dead = false
-
-func  _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
-func _input(event) -> void:
-	if event is InputEventMouseMotion:
-		rotation_degrees.y -= event.relative.x * MOUSE_SENSIBILITY
+@onready var head: Node3D = $Head
+@onready var movement_input_component : MovementInputComponent = MovementInputComponent.new()
+@export var movement_component : MovementComponent = null
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	handle_gravity(delta)
+	
+	movement_component.handle_movement_state()
+	movement_component.handle_acceleration(self, movement_input_component.get_movement_input())
+	movement_component.handle_jump(self, movement_input_component.get_jump_input())
+	
+	move_and_slide()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
+		head.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-80), deg_to_rad(80))
+	
+	movement_component.set_movement_state(movement_input_component.get_walk_input(), movement_input_component.get_sprint_input())
+
+func handle_gravity(delta : float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, -1 * input_dir.y)).normalized()
-	if direction:
-		cur_speed = move_toward(cur_speed, SPEED, ACCEL * delta)
-		velocity.x = direction.x * cur_speed
-		velocity.z = direction.z * cur_speed
-	else:
-		cur_speed = 0
-		velocity.x = move_toward(velocity.x, cur_speed, DEACCEL * delta)
-		velocity.z = move_toward(velocity.z, cur_speed, DEACCEL * delta)
-
-	move_and_slide()
-	
-func kill():
-	dead = true
-	audio_stream_player_3d.process_mode = Node.PROCESS_MODE_DISABLED
-	animated_sprite_3d.play("death")
-	collision.process_mode = Node.PROCESS_MODE_DISABLED
