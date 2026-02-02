@@ -7,7 +7,11 @@ const DEACCEL = 5
 const JUMP_VELOCITY = 4.5
 const MOUSE_SENSIBILITY = 0.5
 
+@onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
+@onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer3D
+@onready var collision: CollisionShape3D = $Collision
 var cur_speed = 0
+var dead = false
 
 func  _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -39,3 +43,9 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, cur_speed, DEACCEL * delta)
 
 	move_and_slide()
+	
+func kill():
+	dead = true
+	audio_stream_player_3d.process_mode = Node.PROCESS_MODE_DISABLED
+	animated_sprite_3d.play("death")
+	collision.process_mode = Node.PROCESS_MODE_DISABLED

@@ -15,6 +15,10 @@ run/main_scene="uid://dxdpnfpvmyhwc"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[global_group]
+
+player=""
+
 [layer_names]
 
 3d_physics/layer_1="Player"
