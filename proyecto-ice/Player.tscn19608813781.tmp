@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://dchqkiiiwktrp"]
+
+[ext_resource type="PackedScene" uid="uid://c4dnggjqsimfw" path="res://Pistol.tscn" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://vr1fvjkn6xmm" path="res://player.gd" id="1_kpjcp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rxg2q"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1101428949 groups=["player"]]
+collision_mask = 2
+script = ExtResource("1_kpjcp")
+
+[node name="Collision" type="CollisionShape3D" parent="." unique_id=152227142]
+shape = SubResource("CapsuleShape3D_rxg2q")
+
+[node name="Head" type="Node3D" parent="." unique_id=75048197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=293476455]
+
+[node name="Pistol" parent="." unique_id=1016405071 instance=ExtResource("1_glv2v")]
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1358766935]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=627507085]
