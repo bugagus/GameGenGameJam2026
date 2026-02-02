@@ -7,7 +7,16 @@
 [ext_resource type="Texture2D" uid="uid://lg8q3lvcjm8e" path="res://Assets/Sprites/Idle.png" id="5_ijc8j"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n8kc8"]
+resource_name = "Shoot"
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ijc8j")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_bc0en")
@@ -23,16 +32,50 @@ animations = [{
 }],
 "loop": true,
 "name": &"Shoot",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_ijc8j")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
+"speed": 4.0
 }]
+
+[sub_resource type="Animation" id="Animation_bc0en"]
+resource_name = "Idle"
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ywdml"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Control/AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_vh0nm"]
+resource_name = "Shoot"
+step = 0.25
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ywdml"]
+_data = {
+&"Idle": SubResource("Animation_bc0en"),
+&"RESET": SubResource("Animation_ywdml"),
+&"Shoot": SubResource("Animation_vh0nm")
+}
 
 [node name="Pistol" type="Node3D" unique_id=1016405071]
 
@@ -55,3 +98,7 @@ grow_vertical = 0
 texture_filter = 3
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_n8kc8")
+animation = &"Shoot"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=429435528]
+libraries/ = SubResource("AnimationLibrary_ywdml")

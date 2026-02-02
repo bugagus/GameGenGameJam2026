@@ -1,9 +1,13 @@
 extends CharacterBody3D
 
 
-const SPEED = 5.0
+const SPEED = 10.0
+const ACCEL = 5
+const DEACCEL = 5
 const JUMP_VELOCITY = 4.5
-const MOUSE_SENSIBILITY = 2.0
+const MOUSE_SENSIBILITY = 0.5
+
+var cur_speed = 0
 
 func  _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -23,13 +27,15 @@ func _physics_process(delta: float) -> void:
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_down", "ui_up")
+	var direction := (transform.basis * Vector3(input_dir.x, 0, -1 * input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		cur_speed = move_toward(cur_speed, SPEED, ACCEL * delta)
+		velocity.x = direction.x * cur_speed
+		velocity.z = direction.z * cur_speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		cur_speed = 0
+		velocity.x = move_toward(velocity.x, cur_speed, DEACCEL * delta)
+		velocity.z = move_toward(velocity.z, cur_speed, DEACCEL * delta)
 
 	move_and_slide()
