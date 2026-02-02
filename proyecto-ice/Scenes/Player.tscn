@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dchqkiiiwktrp"]
 
-[ext_resource type="PackedScene" uid="uid://c4dnggjqsimfw" path="res://Pistol.tscn" id="1_glv2v"]
-[ext_resource type="Script" uid="uid://vr1fvjkn6xmm" path="res://player.gd" id="1_kpjcp"]
+[ext_resource type="PackedScene" uid="uid://c4dnggjqsimfw" path="res://Scenes/Pistol.tscn" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://vr1fvjkn6xmm" path="res://Assets/Scripts/Player.gd" id="1_kpjcp"]
 [ext_resource type="PackedScene" uid="uid://bujg4j35m60mw" path="res://Assets/Components/movement_component.tscn" id="3_kne1u"]
 [ext_resource type="AudioStream" uid="uid://c4fdhrjj20xh1" path="res://Assets/Sounds/BANG sound effect Inuyashiki(MP3_160K).mp3" id="4_e80uo"]
 

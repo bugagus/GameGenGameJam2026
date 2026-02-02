@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bctgb8iyyvkfs"]
 
-[ext_resource type="Script" uid="uid://dw1g186dj0dx8" path="res://Scripts/Enemy.gd" id="1_s7bn3"]
-[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://icon.svg" id="1_tt7e2"]
+[ext_resource type="Script" uid="uid://dw1g186dj0dx8" path="res://Assets/Scripts/Enemy.gd" id="1_s7bn3"]
+[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="1_tt7e2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tt7e2"]
 

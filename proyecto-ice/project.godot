@@ -13,7 +13,11 @@ config_version=5
 config/name="ProyectoICE"
 run/main_scene="uid://dxdpnfpvmyhwc"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Assets/Sprites/icon.svg"
+
+[global_group]
+
+Player=""
 
 [input]
 

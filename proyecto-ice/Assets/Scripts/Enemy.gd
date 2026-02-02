@@ -6,13 +6,10 @@ extends CharacterBody3D
 @export var attack_range = 2.0
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
-@onready var player : CharacterBody3D = get_tree().get_first_node_in_group("player")
+@onready var player : CharacterBody3D = get_tree().get_first_node_in_group("Player")
 
 var gravity = 9.8
 var dead = false
-
-func _ready() -> void:
-	target_position(player.position)
 	
 func _physics_process(delta):
 	
@@ -24,7 +21,8 @@ func _physics_process(delta):
 		
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-	
+		
+	target_position(player.position)
 	var next_location = navigation_agent_3d.get_next_path_position()
 	var current_location = global_transform.origin
 	var new_velocity = (next_location - current_location).normalized() * move_speed

@@ -27,3 +27,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func handle_gravity(delta : float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
+func kill() -> void:
+	var i = 0
