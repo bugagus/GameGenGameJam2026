@@ -12,7 +12,8 @@ func _physics_process(delta: float) -> void:
 	
 	movement_component.handle_movement_state()
 	movement_component.handle_acceleration(self, movement_input_component.get_movement_input())
-	movement_component.handle_jump(self, movement_input_component.get_jump_input())
+	if is_on_floor():
+		movement_component.handle_jump(self, movement_input_component.get_jump_input())
 	
 	move_and_slide()
 
