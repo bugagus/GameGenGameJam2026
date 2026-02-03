@@ -14,3 +14,6 @@ func get_walk_input() -> bool:
 	
 func get_jump_input() -> bool:
 	return Input.is_action_just_pressed("Saltar")
+	
+func get_dash_input() -> bool:
+	return Input.is_action_just_pressed("Dash")
