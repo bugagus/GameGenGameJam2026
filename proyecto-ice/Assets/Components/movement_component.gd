@@ -43,7 +43,7 @@ func set_movement_state(is_walking : bool, is_sprinting: bool) -> void:
 func handle_acceleration(entity : CharacterBody3D, target_direction: Vector2) -> void:
 	var direction : Vector3 = (entity.transform.basis * Vector3(target_direction.x, 0, target_direction.y))
 	
-	direction.normalized()
+	direction = direction.normalized()
 	
 	if direction:
 		entity.velocity.x = direction.x * current_speed

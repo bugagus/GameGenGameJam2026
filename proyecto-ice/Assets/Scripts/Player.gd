@@ -9,6 +9,16 @@ const mouse_sensitivity : float = 0.05
 @export var movement_component : MovementComponent = null
 var dead = false
 
+@export var coyote_frames := 6
+
+var coyote := false
+var last_floor := false
+var jumping := false
+
+func _ready() -> void:
+	$CoyoteTimer.wait_time = coyote_frames / 60.0
+
+
 func _physics_process(delta: float) -> void:
 	if dead:
 		return
@@ -22,10 +32,23 @@ func _physics_process(delta: float) -> void:
 	movement_component.update_dash(self, delta)
 	
 	movement_component.handle_acceleration(self, movement_input_component.get_movement_input())
-	if is_on_floor():
-		movement_component.handle_jump(self, movement_input_component.get_jump_input())
+	var jump_input := movement_input_component.get_jump_input()
+
+	if jump_input and (is_on_floor() or coyote):
+		movement_component.handle_jump(self, true)
+		jumping = true
+		coyote = false
+	else:
+		jumping = false
 	
 	move_and_slide()
+	
+	if not is_on_floor() and last_floor and not jumping:
+		coyote = true
+		$CoyoteTimer.start()
+
+	last_floor = is_on_floor()
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -40,7 +63,7 @@ func handle_gravity(delta : float) -> void:
 		velocity += get_gravity() * delta
 		
 func kill() -> void:
-	print("Me he muerto")
+	var i = 0
 	
 func _process(_delta) -> void:
 	if Input.is_action_just_pressed("Disparo"):
@@ -50,3 +73,6 @@ func shoot():
 	Anima.animation = "Shoot"
 	Anima.play()
 	$ShootSound.play()
+	
+func _on_coyote_timer_timeout() -> void:
+	coyote = false
