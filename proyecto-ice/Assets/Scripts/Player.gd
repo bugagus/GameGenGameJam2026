@@ -6,6 +6,7 @@ const mouse_sensitivity : float = 0.05
 var max_health : int = 100
 var current_health : int = 100
 
+@onready var ray_cast_3d: RayCast3D = $RayCast3D
 @onready var head: Node3D = $Head
 @onready var Anima: AnimatedSprite2D = $Pistol/CanvasLayer/Control/AnimatedSprite2D
 @onready var movement_input_component : MovementInputComponent = MovementInputComponent.new()
@@ -88,28 +89,15 @@ func shoot():
 	if has_node("ShootSound"):
 		$ShootSound.play()    
 		
-	var camera = get_viewport().get_camera_3d()
-	
-	var from = camera.global_position
-	var to = from - camera.global_transform.basis.z * 100.0
-
-	var space_state = get_world_3d().direct_space_state
-	var query = PhysicsRayQueryParameters3D.create(from, to)
-	
-	query.exclude = [self.get_rid()] 
-	
-	var result = space_state.intersect_ray(query)
-
-	if result:
-		var collider = result.collider
-		var distance = from.distance_to(result.position)
-		var damage_multiplier = 1.0 - (distance/max_shoot_distance)
-		var damage = max_damage * damage_multiplier
-		if collider.has_method("die"):
-			print("Disparo acertado a: ", collider.name)
-			collider.take_damage(damage)
+	if ray_cast_3d.is_colliding() and ray_cast_3d.get_collider().has_method("take_damage"):
+		if ray_cast_3d.get_collider().has_method("take_damage"):
+			var distance = ray_cast_3d.position.distance_to(ray_cast_3d.get_collider().position)
+			var damage_multiplier = 1.0 - (distance/max_shoot_distance)
+			var damage = max_damage * damage_multiplier
+			ray_cast_3d.get_collider().take_damage(damage)
+			print("Disparo a agente guarro")
 		else:
-			print("Disparo a pared/objeto: ", collider.name)
+			print("Disparo a mierdon")
 	$ShootSound.play()
 	
 func _on_coyote_timer_timeout() -> void:
