@@ -27,3 +27,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 [node name="ShootSound" type="AudioStreamPlayer" parent="." unique_id=1610123062]
 stream = ExtResource("4_e80uo")
 bus = &"Sfx"
+
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=17458339]
