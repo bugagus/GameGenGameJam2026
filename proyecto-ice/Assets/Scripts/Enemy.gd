@@ -58,8 +58,6 @@ func die():
 	queue_free()
 
 func take_damage(damage_taken) -> void:
-	print("PILLO DAÑO")
-	print(damage_taken)
 	current_health = current_health - damage_taken
 	print(current_health)
 	if current_health <= 0:
