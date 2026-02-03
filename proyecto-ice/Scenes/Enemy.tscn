@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://dw1g186dj0dx8" path="res://Assets/Scripts/Enemy.gd" id="1_s7bn3"]
 [ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="1_tt7e2"]
 [ext_resource type="Script" uid="uid://dv2yx8jwn87ut" path="res://Assets/Scripts/NavAgent.gd" id="3_xeo28"]
+[ext_resource type="Script" uid="uid://4dlt0xo4l5iw" path="res://Assets/Scripts/StateMachine/StateMachine.gd" id="4_mo1ky"]
+[ext_resource type="Script" uid="uid://cyohcugugoivl" path="res://Assets/Scripts/StateMachine/Idle.gd" id="5_6bs3c"]
+[ext_resource type="Script" uid="uid://cuqwn87io80nv" path="res://Assets/Scripts/StateMachine/Attacking.gd" id="6_uoxpr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tt7e2"]
 
@@ -47,4 +50,16 @@ autoplay = "idle"
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1380395482]
 avoidance_enabled = true
 script = ExtResource("3_xeo28")
-move_speed = 5.0
+
+[node name="StateMachine" type="Node3D" parent="." unique_id=1943952542 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_mo1ky")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://4dlt0xo4l5iw"
+
+[node name="Idle" type="Node3D" parent="StateMachine" unique_id=618403084]
+script = ExtResource("5_6bs3c")
+metadata/_custom_type_script = "uid://cyohcugugoivl"
+
+[node name="Attacking" type="Node3D" parent="StateMachine" unique_id=631581475]
+script = ExtResource("6_uoxpr")
+metadata/_custom_type_script = "uid://cuqwn87io80nv"
