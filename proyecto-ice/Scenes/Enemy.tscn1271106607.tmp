@@ -25,11 +25,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Enemy" type="CharacterBody3D" unique_id=283281086 node_paths=PackedStringArray("navigation_agent")]
+[node name="Enemy" type="CharacterBody3D" unique_id=283281086]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_s7bn3")
-navigation_agent = NodePath("NavigationAgent3D")
+move_speed = null
+attack_range = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=904254751]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -45,6 +46,4 @@ autoplay = "idle"
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1899171225]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1380395482]
-avoidance_enabled = true
 script = ExtResource("3_xeo28")
-move_speed = 5.0

@@ -6,8 +6,11 @@ const mouse_sensitivity : float = 0.05
 @onready var head: Node3D = $Head
 @onready var movement_input_component : MovementInputComponent = MovementInputComponent.new()
 @export var movement_component : MovementComponent = null
+var dead = false
 
 func _physics_process(delta: float) -> void:
+	if dead:
+		return
 	handle_gravity(delta)
 	
 	movement_component.handle_movement_state()
@@ -29,5 +32,5 @@ func handle_gravity(delta : float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
-func kill() -> void:
-	var i = 0
+func kill():
+	dead = false
