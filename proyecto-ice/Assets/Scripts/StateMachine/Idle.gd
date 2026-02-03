@@ -15,15 +15,16 @@ func enter():
 	enemy.animated_sprite_3d.play("idle")
 	randomize_wander()
 	
-func process(delta: float):
+func update(delta: float):
 	wander_time-=delta
 	if wander_time < 0:
 		randomize_wander()
 		
 
-func physics_process(_delta: float):
-	if can_see_player():
-		Transitioned.emit(self, "Chase")
+func physics_update(_delta: float):
+	var dist = enemy.global_position.distance_to(player.global_position)
+	if can_see_player() and dist < enemy.detection_range:
+		Transitioned.emit(self, "Attacking")
 
 
 func randomize_wander():
