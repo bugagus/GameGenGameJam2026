@@ -22,6 +22,8 @@ func update(delta: float):
 
 func physics_update(_delta: float):
 	var dist = enemy.global_position.distance_to(player.global_position)
+	if enemy.current_health < enemy.max_health:
+		Transitioned.emit(self, "Attacking")
 	if can_see_player() and dist < enemy.detection_range:
 		Transitioned.emit(self, "Attacking")
 

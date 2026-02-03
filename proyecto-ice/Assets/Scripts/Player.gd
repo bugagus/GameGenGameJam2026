@@ -3,6 +3,9 @@ extends CharacterBody3D
 
 const mouse_sensitivity : float = 0.05
 
+var max_health : int = 100
+var current_health : int = 100
+
 @onready var head: Node3D = $Head
 @onready var Anima: AnimatedSprite2D = $Pistol/CanvasLayer/Control/AnimatedSprite2D
 @onready var movement_input_component : MovementInputComponent = MovementInputComponent.new()
@@ -14,6 +17,9 @@ var dead = false
 var coyote := false
 var last_floor := false
 var jumping := false
+
+var max_shoot_distance: float = 100.0
+var max_damage : float = 50.0
 
 func _ready() -> void:
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
@@ -62,8 +68,14 @@ func handle_gravity(delta : float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
-func kill() -> void:
-	var i = 0
+func die() -> void:
+	#dead = true
+	dead = false
+
+func take_damage(damage_taken) -> void:
+	current_health = current_health - damage_taken
+	if current_health <= 0:
+		die()
 	
 func _process(_delta) -> void:
 	if Input.is_action_just_pressed("Disparo"):
@@ -90,10 +102,12 @@ func shoot():
 
 	if result:
 		var collider = result.collider
-		
-		if collider.has_method("kill"):
+		var distance = from.distance_to(result.position)
+		var damage_multiplier = 1.0 - (distance/max_shoot_distance)
+		var damage = max_damage * damage_multiplier
+		if collider.has_method("die"):
 			print("Disparo acertado a: ", collider.name)
-			collider.kill()
+			collider.take_damage(damage)
 		else:
 			print("Disparo a pared/objeto: ", collider.name)
 	$ShootSound.play()

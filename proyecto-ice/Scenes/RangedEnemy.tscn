@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://buqw7drn2cci2"]
+
+[ext_resource type="Script" uid="uid://ftoytja3n0cs" path="res://Assets/Scripts/RangedEnemy.gd" id="1_lm0bq"]
+[ext_resource type="PackedScene" uid="uid://w8tbkc8n2gvs" path="res://Scenes/Bullet.tscn" id="2_c2ypk"]
+[ext_resource type="Texture2D" uid="uid://lg8q3lvcjm8e" path="res://Assets/Sprites/Idle.png" id="2_lm0bq"]
+[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="3_c2ypk"]
+[ext_resource type="Script" uid="uid://dv2yx8jwn87ut" path="res://Assets/Scripts/NavAgent.gd" id="4_ix8y2"]
+[ext_resource type="Script" uid="uid://4dlt0xo4l5iw" path="res://Assets/Scripts/StateMachine/StateMachine.gd" id="5_tyjyq"]
+[ext_resource type="Script" uid="uid://cyohcugugoivl" path="res://Assets/Scripts/StateMachine/Idle.gd" id="6_uxxin"]
+[ext_resource type="Script" uid="uid://cuqwn87io80nv" path="res://Assets/Scripts/StateMachine/Attacking.gd" id="7_dcsum"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tt7e2"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s7bn3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_lm0bq")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_c2ypk")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_c2ypk")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=283281086 node_paths=PackedStringArray("navigation_agent")]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_lm0bq")
+bullet_scene = ExtResource("2_c2ypk")
+attack_range = 2.0
+navigation_agent = NodePath("NavigationAgent3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=904254751]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_tt7e2")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1626554141]
+transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0)
+billboard = 2
+sprite_frames = SubResource("SpriteFrames_s7bn3")
+animation = &"attack"
+autoplay = "idle"
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1899171225]
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1380395482]
+avoidance_enabled = true
+script = ExtResource("4_ix8y2")
+
+[node name="StateMachine" type="Node3D" parent="." unique_id=1943952542 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("5_tyjyq")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://4dlt0xo4l5iw"
+
+[node name="Idle" type="Node3D" parent="StateMachine" unique_id=618403084]
+script = ExtResource("6_uxxin")
+metadata/_custom_type_script = "uid://cyohcugugoivl"
+
+[node name="Attacking" type="Node3D" parent="StateMachine" unique_id=631581475]
+script = ExtResource("7_dcsum")
+metadata/_custom_type_script = "uid://cuqwn87io80nv"

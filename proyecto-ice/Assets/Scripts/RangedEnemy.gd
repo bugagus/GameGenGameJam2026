@@ -1,14 +1,14 @@
-class_name Enemy
+class_name RangedEnemy
 extends CharacterBody3D
 
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
+@export var bullet_scene : PackedScene
 
-var max_health : int = 100
-var current_health : int = 100
+var max_health : int = 50
+var current_health : int = 50
 
-@export var attack_range = 2.0
+@export var attack_range = 20.0
 @export var attack_cooldown_time = 1.5
-@export var attack_damage = 20
 @export var move_speed = 2.0
 @export var navigation_agent: NavAgent
 @export var detection_range: float = 25.0
@@ -40,14 +40,18 @@ func perform_attack():
 	navigation_agent.set_move_speed(0)
 	velocity = Vector3.ZERO
 	animated_sprite_3d.play("attack")
+	spawn_bullet()
 	await animated_sprite_3d.animation_finished
-	var dist = global_position.distance_to(player.global_position)	
-	if dist < attack_range and can_attack:
-		player.take_damage(attack_damage)
-		
 	await get_tree().create_timer(attack_cooldown_time).timeout
 	navigation_agent.set_move_speed(move_speed)
 	can_attack = true
+
+func spawn_bullet():
+	var bullet = bullet_scene.instantiate()
+	get_tree().current_scene.add_child(bullet)
+	var spawn_pos = global_position + Vector3(0, 1.0, 0)
+	bullet.global_position = spawn_pos
+	bullet.look_at(player.global_position)
 
 func die():
 	dead = true
@@ -58,9 +62,6 @@ func die():
 	queue_free()
 
 func take_damage(damage_taken) -> void:
-	print("PILLO DAÑO")
-	print(damage_taken)
 	current_health = current_health - damage_taken
-	print(current_health)
 	if current_health <= 0:
 		die()
