@@ -18,16 +18,16 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 1.5,
 "texture": ExtResource("1_bc0en")
 }, {
-"duration": 1.0,
+"duration": 1.5,
 "texture": ExtResource("2_vh0nm")
 }, {
-"duration": 1.0,
+"duration": 1.5,
 "texture": ExtResource("3_ywdml")
 }, {
-"duration": 1.0,
+"duration": 1.5,
 "texture": ExtResource("4_5477g")
 }],
 "loop": false,
