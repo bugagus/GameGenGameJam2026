@@ -7,8 +7,11 @@ const mouse_sensitivity : float = 0.05
 @onready var Anima: AnimatedSprite2D = $Pistol/CanvasLayer/Control/AnimatedSprite2D
 @onready var movement_input_component : MovementInputComponent = MovementInputComponent.new()
 @export var movement_component : MovementComponent = null
+var dead = false
 
 func _physics_process(delta: float) -> void:
+	if dead:
+		return
 	handle_gravity(delta)
 	
 	movement_component.handle_movement_state()
@@ -33,7 +36,6 @@ func handle_gravity(delta : float) -> void:
 func kill() -> void:
 	var i = 0
 	
-
 func _process(_delta) -> void:
 	if Input.is_action_just_pressed("Disparo"):
 		shoot()
