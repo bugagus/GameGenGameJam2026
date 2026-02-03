@@ -15,6 +15,12 @@ func _physics_process(delta: float) -> void:
 	handle_gravity(delta)
 	
 	movement_component.handle_movement_state()
+	
+	if movement_input_component.get_dash_input():
+		movement_component.start_dash(self, movement_input_component.get_movement_input())
+
+	movement_component.update_dash(self, delta)
+	
 	movement_component.handle_acceleration(self, movement_input_component.get_movement_input())
 	if is_on_floor():
 		movement_component.handle_jump(self, movement_input_component.get_jump_input())
