@@ -34,7 +34,7 @@ func handle_gravity(delta : float) -> void:
 		velocity += get_gravity() * delta
 		
 func kill() -> void:
-	var i = 0
+	print("Me he muerto")
 	
 func _process(_delta) -> void:
 	if Input.is_action_just_pressed("Disparo"):
