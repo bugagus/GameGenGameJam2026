@@ -41,6 +41,8 @@ func set_movement_state(is_walking : bool, is_sprinting: bool) -> void:
 		current_movement_state = movement_states.Neutral
 
 func handle_acceleration(entity : CharacterBody3D, target_direction: Vector2) -> void:
+	if is_dashing:
+		return
 	var direction : Vector3 = (entity.transform.basis * Vector3(target_direction.x, 0, target_direction.y))
 	
 	direction = direction.normalized()
