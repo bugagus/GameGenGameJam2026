@@ -7,6 +7,7 @@ extends CharacterBody3D
 @export var attack_cooldown_time = 1.5
 @export var move_speed = 2.0
 @export var navigation_agent: NavAgent
+@export var detection_range: float = 2.0
 @onready var player : CharacterBody3D = get_tree().get_first_node_in_group("Player")
 
 var gravity = 9.8

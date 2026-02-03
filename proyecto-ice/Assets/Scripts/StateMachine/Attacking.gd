@@ -8,6 +8,6 @@ class_name Attacking
 func enter():
 	enemy.navigation_agent.set_target(player.global_position)
 
-func physics_process(_delta: float):
+func physics_update(_delta: float):
 	enemy.navigation_agent.set_target(player.global_position)
 	enemy.attempt_to_kill_player()
