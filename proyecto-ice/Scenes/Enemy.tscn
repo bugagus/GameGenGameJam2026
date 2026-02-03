@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dw1g186dj0dx8" path="res://Assets/Scripts/Enemy.gd" id="1_s7bn3"]
 [ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="1_tt7e2"]
+[ext_resource type="Texture2D" uid="uid://lg8q3lvcjm8e" path="res://Assets/Sprites/Idle.png" id="2_6bs3c"]
 [ext_resource type="Script" uid="uid://dv2yx8jwn87ut" path="res://Assets/Scripts/NavAgent.gd" id="3_xeo28"]
 [ext_resource type="Script" uid="uid://4dlt0xo4l5iw" path="res://Assets/Scripts/StateMachine/StateMachine.gd" id="4_mo1ky"]
 [ext_resource type="Script" uid="uid://cyohcugugoivl" path="res://Assets/Scripts/StateMachine/Idle.gd" id="5_6bs3c"]
@@ -11,6 +12,14 @@
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s7bn3"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6bs3c")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_tt7e2")
@@ -42,7 +51,7 @@ shape = SubResource("CapsuleShape3D_tt7e2")
 transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0)
 billboard = 2
 sprite_frames = SubResource("SpriteFrames_s7bn3")
-animation = &"death"
+animation = &"attack"
 autoplay = "idle"
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1899171225]

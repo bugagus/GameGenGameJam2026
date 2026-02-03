@@ -6,7 +6,6 @@ class_name Idle
 @export var max_wander_time := 4.0
 
 var wander_time : float = 0.0
-
 @onready var enemy : CharacterBody3D = get_parent().get_parent()
 @onready var player : CharacterBody3D = get_tree().get_first_node_in_group("Player")
 
@@ -39,6 +38,7 @@ func can_see_player() -> bool:
 	var origin = enemy.global_position + Vector3(0, 1, 0)
 	var target = player.global_position + Vector3(0, 1, 0)
 	var query = PhysicsRayQueryParameters3D.create(origin, target)
+	query.exclude = [enemy.get_rid()]
 	var result = space_state.intersect_ray(query)
 	if result:
 		if result.collider == player:

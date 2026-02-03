@@ -48,5 +48,28 @@ func _process(_delta) -> void:
 		
 func shoot():
 	Anima.animation = "Shoot"
+	Anima.frame = 0 
 	Anima.play()
-	$ShootSound.play()
+	if has_node("ShootSound"):
+		$ShootSound.play()    
+		
+	var camera = get_viewport().get_camera_3d()
+	
+	var from = camera.global_position
+	var to = from - camera.global_transform.basis.z * 100.0
+
+	var space_state = get_world_3d().direct_space_state
+	var query = PhysicsRayQueryParameters3D.create(from, to)
+	
+	query.exclude = [self.get_rid()] 
+	
+	var result = space_state.intersect_ray(query)
+
+	if result:
+		var collider = result.collider
+		
+		if collider.has_method("kill"):
+			print("Disparo acertado a: ", collider.name)
+			collider.kill()
+		else:
+			print("Disparo a pared/objeto: ", collider.name)
