@@ -21,6 +21,12 @@ enum movement_states {Neutral, Walking, Sprinting, Dashing}
 
 var current_movement_state : movement_states = movement_states.Neutral
 
+@export var ground_accel := 20.0
+@export var ground_decel := 25.0
+@export var air_accel := 8.0
+@export var air_control := 0.6
+
+
 func handle_movement_state() -> void:
 	match current_movement_state:
 		movement_states.Neutral:
@@ -43,16 +49,25 @@ func set_movement_state(is_walking : bool, is_sprinting: bool) -> void:
 func handle_acceleration(entity : CharacterBody3D, target_direction: Vector2) -> void:
 	if is_dashing:
 		return
-	var direction : Vector3 = (entity.transform.basis * Vector3(target_direction.x, 0, target_direction.y))
-	
-	direction = direction.normalized()
-	
-	if direction:
-		entity.velocity.x = direction.x * current_speed
-		entity.velocity.z = direction.z * current_speed
-	else:
-		entity.velocity.x = move_toward(entity.velocity.x, 0, current_speed)
-		entity.velocity.z = move_toward(entity.velocity.z, 0, current_speed)
+
+	var dir := (entity.transform.basis * Vector3(target_direction.x, 0, target_direction.y))
+	dir = dir.normalized()
+
+	var accel := ground_accel if entity.is_on_floor() else air_accel
+	var control := 1.0 if entity.is_on_floor() else air_control
+
+	var target_vel_x := dir.x * current_speed * control
+	var target_vel_z := dir.z * current_speed * control
+
+	entity.velocity.x = move_toward(entity.velocity.x, target_vel_x, accel)
+	entity.velocity.z = move_toward(entity.velocity.z, target_vel_z, accel)
+
+	# Frenado suave cuando no hay input
+	if dir == Vector3.ZERO:
+		var decel := ground_decel if entity.is_on_floor() else ground_decel * 0.5
+		entity.velocity.x = move_toward(entity.velocity.x, 0.0, decel)
+		entity.velocity.z = move_toward(entity.velocity.z, 0.0, decel)
+
 
 func handle_jump(entity : CharacterBody3D, is_jumping : bool) -> void:
 	if is_jumping:

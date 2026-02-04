@@ -29,3 +29,5 @@ stream = ExtResource("4_e80uo")
 bus = &"Sfx"
 
 [node name="CoyoteTimer" type="Timer" parent="." unique_id=17458339]
+
+[node name="JumpBufferTimer" type="Timer" parent="." unique_id=734895160]
