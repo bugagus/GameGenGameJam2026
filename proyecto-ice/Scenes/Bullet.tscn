@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://w8tbkc8n2gvs"]
 
-[ext_resource type="Script" uid="uid://d3dsilfn3if3x" path="res://Scenes/Bullet.gd" id="1_vlxeq"]
+[ext_resource type="Script" uid="uid://b42ukjs15rtkp" path="res://Assets/Scripts/Bullet.gd" id="1_vlxeq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_14k46"]
 radius = 0.08
@@ -11,7 +11,6 @@ height = 0.2
 
 [node name="Bullet" type="Area3D" unique_id=1258562930]
 script = ExtResource("1_vlxeq")
-bullet_speed = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=6824700]
 shape = SubResource("SphereShape3D_14k46")
