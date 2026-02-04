@@ -91,7 +91,7 @@ func shoot():
 		
 	if ray_cast_3d.is_colliding() and ray_cast_3d.get_collider().has_method("take_damage"):
 		if ray_cast_3d.get_collider().has_method("take_damage"):
-			var distance = ray_cast_3d.position.distance_to(ray_cast_3d.get_collider().position)
+			var distance = ray_cast_3d.global_position.distance_to(ray_cast_3d.get_collider().global_position)
 			var damage_multiplier = 1.0 - (distance/max_shoot_distance)
 			var damage = max_damage * damage_multiplier
 			ray_cast_3d.get_collider().take_damage(damage)
