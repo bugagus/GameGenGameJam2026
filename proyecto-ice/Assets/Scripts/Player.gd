@@ -21,9 +21,18 @@ var jumping := false
 
 var max_shoot_distance: float = 100.0
 var max_damage : float = 50.0
+@export var jump_cut_multiplier := 0.35
+@export var jump_buffer_frames := 6
+
+var jump_buffer := false
+
+@export var fall_cam_offset := -0.25
+@export var cam_lerp_speed := 8.0
+@export var dash_cam_tilt := 4.0
 
 func _ready() -> void:
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
+	$JumpBufferTimer.wait_time = jump_buffer_frames  / 60.0
 
 
 func _physics_process(delta: float) -> void:
@@ -31,19 +40,40 @@ func _physics_process(delta: float) -> void:
 		return
 	handle_gravity(delta)
 	
+	var target_y := 0.0
+
+	if velocity.y < -1.0:
+		target_y = fall_cam_offset
+
+	head.position.y = lerp(head.position.y, target_y, cam_lerp_speed * delta)
+
+	
+	if not movement_component.is_dashing and Input.is_action_just_released("Saltar") and velocity.y > 0.0:
+		velocity.y *= jump_cut_multiplier
+	
 	movement_component.handle_movement_state()
 	
 	if movement_input_component.get_dash_input():
 		movement_component.start_dash(self, movement_input_component.get_movement_input())
-
+	
 	movement_component.update_dash(self, delta)
+	var target_tilt := 0.0
+	
+	if movement_component.is_dashing:
+		target_tilt = dash_cam_tilt * sign(movement_component.dash_direction.x)
+	head.rotation.z = lerp(head.rotation.z, deg_to_rad(target_tilt), 10.0 * delta)
 	
 	movement_component.handle_acceleration(self, movement_input_component.get_movement_input())
+	
+	if movement_input_component.get_jump_input():
+		jump_buffer = true
+		$JumpBufferTimer.start()
 	var jump_input := movement_input_component.get_jump_input()
 
-	if jump_input and (is_on_floor() or coyote):
+	if jump_buffer and (is_on_floor() or coyote):
 		movement_component.handle_jump(self, true)
 		jumping = true
+		jump_buffer = false
 		coyote = false
 	else:
 		jumping = false
@@ -65,9 +95,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	movement_component.set_movement_state(movement_input_component.get_walk_input(), movement_input_component.get_sprint_input())
 
-func handle_gravity(delta : float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+func handle_gravity(delta: float) -> void:
+	if is_on_floor():
+		return
+
+	velocity += get_gravity() * delta
+
 		
 func die() -> void:
 	#dead = true
@@ -102,3 +135,6 @@ func shoot():
 	
 func _on_coyote_timer_timeout() -> void:
 	coyote = false
+	
+func _on_jump_buffer_timer_timeout() -> void:
+	jump_buffer = false
