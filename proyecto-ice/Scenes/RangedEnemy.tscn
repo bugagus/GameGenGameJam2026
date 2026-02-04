@@ -68,10 +68,16 @@ script = ExtResource("5_tyjyq")
 initial_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://4dlt0xo4l5iw"
 
-[node name="Idle" type="Node3D" parent="StateMachine" unique_id=618403084]
+[node name="Idle" type="Node3D" parent="StateMachine" unique_id=618403084 node_paths=PackedStringArray("ray_cast_3d")]
 script = ExtResource("6_uxxin")
+ray_cast_3d = NodePath("../../RayCast3D")
 metadata/_custom_type_script = "uid://cyohcugugoivl"
 
 [node name="Attacking" type="Node3D" parent="StateMachine" unique_id=631581475]
 script = ExtResource("7_dcsum")
 metadata/_custom_type_script = "uid://cuqwn87io80nv"
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1208036948]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, -100)
+collision_mask = 3

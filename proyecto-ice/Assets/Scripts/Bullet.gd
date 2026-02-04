@@ -8,7 +8,6 @@ var timer = 0.0
 
 func _physics_process(delta: float) -> void:
 	position -= transform.basis.z * bullet_speed * delta
-
 	timer += delta
 	if timer >= max_lifetime:
 		queue_free()

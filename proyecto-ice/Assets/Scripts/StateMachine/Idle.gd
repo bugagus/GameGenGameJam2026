@@ -8,6 +8,7 @@ class_name Idle
 var wander_time : float = 0.0
 @onready var enemy : CharacterBody3D = get_parent().get_parent()
 @onready var player : CharacterBody3D = get_tree().get_first_node_in_group("Player")
+@export var ray_cast_3d: RayCast3D
 
 
 func enter():
@@ -36,13 +37,8 @@ func randomize_wander():
 	enemy.navigation_agent.set_target(target_pos)
 
 func can_see_player() -> bool:
-	var space_state = enemy.get_world_3d().direct_space_state
-	var origin = enemy.global_position + Vector3(0, 1, 0)
-	var target = player.global_position + Vector3(0, 1, 0)
-	var query = PhysicsRayQueryParameters3D.create(origin, target)
-	query.exclude = [enemy.get_rid()]
-	var result = space_state.intersect_ray(query)
-	if result:
-		if result.collider == player:
-			return true
+	ray_cast_3d.look_at(player.global_position + Vector3(0, 1, 0))
+	ray_cast_3d.force_raycast_update() 
+	if ray_cast_3d.is_colliding() and ray_cast_3d.get_collider() == player:
+		return true
 	return false
