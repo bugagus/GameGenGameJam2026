@@ -20,10 +20,7 @@ var jumping := false
 
 var jump_buffer := false
 
-@export var fall_gravity_multiplier := 2.2
-@export var low_jump_gravity_multiplier := 1.6
-
-@export var fall_cam_offset := -0.5
+@export var fall_cam_offset := -0.25
 @export var cam_lerp_speed := 8.0
 @export var dash_cam_tilt := 4.0
 
@@ -96,17 +93,7 @@ func handle_gravity(delta: float) -> void:
 	if is_on_floor():
 		return
 
-	var gravity := get_gravity().y
-
-	# Cayendo → más gravedad
-	if velocity.y < 0.0:
-		velocity.y += gravity * fall_gravity_multiplier * delta
-	# Subiendo pero soltaste el botón → salto corto más rápido
-	elif velocity.y > 0.0 and not Input.is_action_pressed("Saltar"):
-		velocity.y += gravity * low_jump_gravity_multiplier * delta
-	# Subida normal
-	else:
-		velocity.y += gravity * delta
+	velocity += get_gravity() * delta
 
 		
 func kill() -> void:
