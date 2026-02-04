@@ -8,7 +8,7 @@ extends Node
 
 @export var dash_speed := 20.0
 @export var dash_duration := 0.25
-@export var dash_cooldown := 1.0
+@export var dash_cooldown := 1.0  
 
 var current_speed : float = 0.0
 
@@ -19,13 +19,12 @@ var can_dash := true
 
 enum movement_states {Neutral, Walking, Sprinting, Dashing}
 
-var current_movement_state : movement_states = movement_states.Neutral
+var current_movement_state : movement_states = movement_states.Neutral  
 
-@export var ground_accel := 20.0
-@export var ground_decel := 25.0
-@export var air_accel := 8.0
-@export var air_control := 0.6
-
+@export var ground_accel := 4.0 
+@export var ground_decel := 4.0
+@export var air_accel := 3.0     
+@export var air_decel := 0.1 
 
 func handle_movement_state() -> void:
 	match current_movement_state:
@@ -49,30 +48,29 @@ func set_movement_state(is_walking : bool, is_sprinting: bool) -> void:
 func handle_acceleration(entity : CharacterBody3D, target_direction: Vector2) -> void:
 	if is_dashing:
 		return
-
-	var dir := (entity.transform.basis * Vector3(target_direction.x, 0, target_direction.y))
+	
+	var dir := (entity.transform.basis * Vector3(target_direction.x, 0, target_direction.y)).normalized()
 	dir = dir.normalized()
 
-	var accel := ground_accel if entity.is_on_floor() else air_accel
-	var control := 1.0 if entity.is_on_floor() else air_control
-
-	var target_vel_x := dir.x * current_speed * control
-	var target_vel_z := dir.z * current_speed * control
-
-	entity.velocity.x = move_toward(entity.velocity.x, target_vel_x, accel)
-	entity.velocity.z = move_toward(entity.velocity.z, target_vel_z, accel)
-
-	# Frenado suave cuando no hay input
-	if dir == Vector3.ZERO:
-		var decel := ground_decel if entity.is_on_floor() else ground_decel * 0.5
-		entity.velocity.x = move_toward(entity.velocity.x, 0.0, decel)
-		entity.velocity.z = move_toward(entity.velocity.z, 0.0, decel)
+	var current_vel_2d := Vector2(entity.velocity.x, entity.velocity.z)
+	var target_vel_2d := Vector2(dir.x, dir.z) * current_speed
+	
+	var accel = 0.0
+	
+	if entity.is_on_floor():
+		accel = ground_accel if dir != Vector3.ZERO else ground_decel
+	else:
+		accel = air_accel if dir != Vector3.ZERO else air_decel
+	
+	current_vel_2d = current_vel_2d.move_toward(target_vel_2d, accel)
+	
+	entity.velocity.x = current_vel_2d.x
+	entity.velocity.z = current_vel_2d.y
 
 
 func handle_jump(entity : CharacterBody3D, is_jumping : bool) -> void:
 	if is_jumping:
 		entity.velocity.y = jump_height
-		
 
 func start_dash(entity: CharacterBody3D, input: Vector2) -> void:
 	if not can_dash or input == Vector2.ZERO:

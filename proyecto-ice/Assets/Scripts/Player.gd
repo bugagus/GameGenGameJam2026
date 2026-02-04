@@ -30,6 +30,8 @@ var jump_buffer := false
 @export var cam_lerp_speed := 8.0
 @export var dash_cam_tilt := 4.0
 
+@export var hard_landing_threshold := -8.0
+
 func _ready() -> void:
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
 	$JumpBufferTimer.wait_time = jump_buffer_frames  / 60.0
@@ -40,13 +42,7 @@ func _physics_process(delta: float) -> void:
 		return
 	handle_gravity(delta)
 	
-	var target_y := 0.0
-
-	if velocity.y < -1.0:
-		target_y = fall_cam_offset
-
-	head.position.y = lerp(head.position.y, target_y, cam_lerp_speed * delta)
-
+	head.position.y = lerp(head.position.y, 0.0, cam_lerp_speed * delta)
 	
 	if not movement_component.is_dashing and Input.is_action_just_released("Saltar") and velocity.y > 0.0:
 		velocity.y *= jump_cut_multiplier
@@ -58,7 +54,7 @@ func _physics_process(delta: float) -> void:
 	
 	movement_component.update_dash(self, delta)
 	var target_tilt := 0.0
-	
+
 	if movement_component.is_dashing:
 		target_tilt = dash_cam_tilt * sign(movement_component.dash_direction.x)
 	head.rotation.z = lerp(head.rotation.z, deg_to_rad(target_tilt), 10.0 * delta)
@@ -68,7 +64,6 @@ func _physics_process(delta: float) -> void:
 	if movement_input_component.get_jump_input():
 		jump_buffer = true
 		$JumpBufferTimer.start()
-	var jump_input := movement_input_component.get_jump_input()
 
 	if jump_buffer and (is_on_floor() or coyote):
 		movement_component.handle_jump(self, true)
@@ -78,7 +73,15 @@ func _physics_process(delta: float) -> void:
 	else:
 		jumping = false
 	
+	var prev_velocity_y = velocity.y
+	
 	move_and_slide()
+	
+	if is_on_floor() and not last_floor:
+		if prev_velocity_y < hard_landing_threshold:
+			head.position.y = fall_cam_offset
+		coyote = true 
+		$CoyoteTimer.start()
 	
 	if not is_on_floor() and last_floor and not jumping:
 		coyote = true
