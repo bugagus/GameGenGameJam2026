@@ -15,6 +15,10 @@ run/main_scene="uid://dxdpnfpvmyhwc"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://Assets/Sprites/icon.svg"
 
+[autoload]
+
+ScoreManager="*uid://bvi8qcvodwksj"
+
 [global_group]
 
 Player=""

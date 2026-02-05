@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://d0m6nrtuue34" path="res://Assets/Models/Maps/testMap.glb" id="2_2dftf"]
 [ext_resource type="PackedScene" uid="uid://bctgb8iyyvkfs" path="res://Scenes/Enemy.tscn" id="3_bcbcq"]
 [ext_resource type="PackedScene" uid="uid://buqw7drn2cci2" path="res://Scenes/RangedEnemy.tscn" id="4_p70al"]
+[ext_resource type="Script" uid="uid://bvi8qcvodwksj" path="res://Scenes/score_manager.gd" id="6_45d1s"]
+[ext_resource type="Script" uid="uid://cyd1rorcmy4la" path="res://Scenes/label.gd" id="7_y7y61"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c6gwx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -54,3 +56,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 use_collision = true
 collision_layer = 2
 size = Vector3(20, 0.5, 100)
+
+[node name="ScoreManager" type="Node" parent="." unique_id=563262757]
+script = ExtResource("6_45d1s")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1494968170]
+
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1053022662]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("7_y7y61")
