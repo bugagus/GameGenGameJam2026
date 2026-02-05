@@ -21,6 +21,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=293476455]
 
+[node name="GrenadePos" type="Marker3D" parent="Head" unique_id=1296489194]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.67081106)
+
 [node name="Pistol" parent="." unique_id=1016405071 instance=ExtResource("1_glv2v")]
 
 [node name="MovementComponent" parent="." unique_id=291293879 instance=ExtResource("3_kne1u")]
@@ -37,3 +40,9 @@ target_position = Vector3(0, 0, -100)
 collision_mask = 3
 
 [node name="JumpBufferTimer" type="Timer" parent="." unique_id=734895160]
+
+[node name="ThrowTimer" type="Timer" parent="." unique_id=94550665]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="timeout" from="ThrowTimer" to="." method="_on_throw_timer_timeout"]
