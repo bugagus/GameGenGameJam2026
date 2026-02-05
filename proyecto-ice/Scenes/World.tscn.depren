@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://ccl6buarlr4yu" path="res://Scenes/Botiquin.tscn" id="2_ti1bm"]
 [ext_resource type="PackedScene" uid="uid://bctgb8iyyvkfs" path="res://Scenes/Enemy.tscn" id="3_bcbcq"]
 [ext_resource type="PackedScene" uid="uid://buqw7drn2cci2" path="res://Scenes/RangedEnemy.tscn" id="4_p70al"]
+[ext_resource type="Script" uid="uid://bvi8qcvodwksj" path="res://Assets/Scripts/score_manager.gd" id="6_45d1s"]
+[ext_resource type="Script" path="res://Scenes/label.gd" id="7_y7y61"]
 [ext_resource type="Texture2D" uid="uid://c5ob5xj0h3w1q" path="res://Assets/Sprites/Shoot4.png" id="8_7yo87"]
-[ext_resource type="Script" path="res://Assets/Scripts/label.gd" id="8_8l3nt"]
 [ext_resource type="Script" path="res://Assets/Scripts/HUD.gd" id="8_op4cu"]
 [ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="9_ti1bm"]
 [ext_resource type="Texture2D" uid="uid://dyvayiqbxajh6" path="res://Assets/Sprites/Shoot2.png" id="10_op4cu"]
@@ -102,6 +103,7 @@ collision_layer = 2
 size = Vector3(20, 0.5, 100)
 
 [node name="ScoreManager" type="Node" parent="." unique_id=563262757]
+script = ExtResource("6_45d1s")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1494968170]
 script = ExtResource("8_op4cu")
@@ -109,7 +111,7 @@ script = ExtResource("8_op4cu")
 [node name="ScoreLabel" type="Label" parent="CanvasLayer" unique_id=1053022662]
 offset_right = 40.0
 offset_bottom = 23.0
-script = ExtResource("8_8l3nt")
+script = ExtResource("7_y7y61")
 
 [node name="Cara" type="AnimatedSprite2D" parent="CanvasLayer" unique_id=1271937046]
 position = Vector2(1109, 598)
