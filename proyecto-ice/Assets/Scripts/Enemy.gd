@@ -19,6 +19,7 @@ var dead = false
 var can_attack = true
 
 @export var score_value: int = 100
+@export var time_value: int = 10
 
 func _ready():
 	navigation_agent.set_move_speed(move_speed)
@@ -54,6 +55,7 @@ func perform_attack():
 func die():
 	dead = true
 	ScoreManager.add_score(score_value)
+	TimeManager.add_time(time_value)
 	$AudioStreamPlayer3D.stop()
 	animated_sprite_3d.play("death")
 	$CollisionShape3D.set_deferred("disabled", true)
