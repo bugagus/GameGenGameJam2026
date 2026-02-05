@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://d2scrblftmjn7"]
+
+[ext_resource type="Script" uid="uid://co4rm5waep1d2" path="res://Scenes/DeliverZone.gd" id="1_w33yc"]
+
+[node name="DeliverZone" type="Area3D" unique_id=1610738595]
+script = ExtResource("1_w33yc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1664424958]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=835456665]
