@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://ccl6buarlr4yu"]
+
+[ext_resource type="Script" uid="uid://bhvv8h5hv5rix" path="res://Scenes/Healthpack.gd" id="1_rxcpo"]
+[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="2_vbab4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_14k66"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sm1ih"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vbab4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Botiquin" type="Area3D" unique_id=1283249824]
+script = ExtResource("1_rxcpo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=491318971]
+shape = SubResource("SphereShape3D_14k66")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1152549774]
+sprite_frames = SubResource("SpriteFrames_sm1ih")
+animation = &"idle"
+autoplay = "idle"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -3,13 +3,15 @@
 [ext_resource type="Script" uid="uid://b42ukjs15rtkp" path="res://Assets/Scripts/Bullet.gd" id="1_vlxeq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_14k46"]
-radius = 0.08
+radius = 0.697
 
 [sub_resource type="SphereMesh" id="SphereMesh_qvus8"]
 radius = 0.1
 height = 0.2
 
 [node name="Bullet" type="Area3D" unique_id=1258562930]
+disable_mode = 2
+collision_layer = 2
 script = ExtResource("1_vlxeq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=6824700]
@@ -17,3 +19,5 @@ shape = SubResource("SphereShape3D_14k46")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1973422690]
 mesh = SubResource("SphereMesh_qvus8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

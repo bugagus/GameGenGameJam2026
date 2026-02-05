@@ -10,8 +10,10 @@ var t_bob = 0.0
 const WEAPON_AMP = 4.0
 var default_weapon_pos = Vector2.ZERO
 
+@onready var cara: AnimatedSprite2D = $"../CanvasLayer/Cara"
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var weapon_holder: Control = $Pistol/CanvasLayer/Control
+@onready var health: Label = $"../CanvasLayer/Health"
 
 var max_health : int = 100
 var current_health : int = 100
@@ -43,6 +45,7 @@ var jump_buffer := false
 @export var hard_landing_threshold := -8.0
 
 func _ready() -> void:
+	health.text = str(current_health)
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
 	$JumpBufferTimer.wait_time = jump_buffer_frames  / 60.0
 	default_weapon_pos = $Pistol/CanvasLayer/Control.position
@@ -125,9 +128,22 @@ func die() -> void:
 	dead = false
 
 func take_damage(damage_taken) -> void:
-	current_health = current_health - damage_taken
+	add_health(-damage_taken)
 	if current_health <= 0:
 		die()
+	elif current_health  <  25:
+		cara.animation = "25"
+	elif current_health  <  50:
+		cara.animation = "50"
+	elif current_health  <  75:
+		cara.animation = "75"
+
+func add_health(added_health) -> void:
+	if current_health + added_health < max_health:
+		current_health += added_health
+	else:
+		current_health = max_health
+	health.text = str(current_health)
 	
 func _process(_delta) -> void:
 	if Input.is_action_just_pressed("Disparo"):

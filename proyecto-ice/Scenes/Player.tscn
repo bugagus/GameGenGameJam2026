@@ -11,6 +11,7 @@
 collision_mask = 2
 script = ExtResource("1_kpjcp")
 movement_component = NodePath("MovementComponent")
+hard_landing_threshold = -1.0
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=152227142]
 shape = SubResource("CapsuleShape3D_rxg2q")
