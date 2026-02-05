@@ -46,6 +46,9 @@ var jump_buffer := false
 
 var can_shoot : bool = true
 
+var grenade = preload("res://Scenes/Grenade.tscn") 
+var can_throw = true
+
 func _ready() -> void:
 	health.text = str(current_health)
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
@@ -108,6 +111,8 @@ func _physics_process(delta: float) -> void:
 		$CoyoteTimer.start()
 
 	last_floor = is_on_floor()
+	
+	grenade_throw()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -192,3 +197,22 @@ func _weaponbob(time) -> Vector2:
 	pos.y = sin(time * BOB_FREQ) * WEAPON_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * WEAPON_AMP
 	return pos
+
+func grenade_throw():
+	if Input.is_action_just_pressed("Granada") and can_throw:
+		var grenadeins = grenade.instantiate()
+		grenadeins.global_position = $Head/GrenadePos.global_position
+		get_tree().current_scene.add_child(grenadeins)
+		
+		can_throw = false
+		$ThrowTimer.start()
+		
+		var force = 18
+		var up_force = 3.5
+		var direction = -$Head.global_transform.basis.z.normalized()
+		
+		grenadeins.launch(force, up_force, direction)
+
+
+func _on_throw_timer_timeout() -> void:
+	can_throw = true
