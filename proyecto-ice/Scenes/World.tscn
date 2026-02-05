@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="9_ti1bm"]
 [ext_resource type="Texture2D" uid="uid://dyvayiqbxajh6" path="res://Assets/Sprites/Shoot2.png" id="10_op4cu"]
 [ext_resource type="Texture2D" uid="uid://cgwsq1lqsy61d" path="res://Assets/Sprites/Shoot1.png" id="11_8l3nt"]
+[ext_resource type="PackedScene" uid="uid://b1uvxlttyvg8" path="res://Scenes/Kid.tscn" id="13_op4cu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c6gwx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -119,3 +120,5 @@ animation = &"50"
 offset_top = 625.0
 offset_right = 40.0
 offset_bottom = 648.0
+
+[node name="Kid" parent="." unique_id=1787995426 instance=ExtResource("13_op4cu")]

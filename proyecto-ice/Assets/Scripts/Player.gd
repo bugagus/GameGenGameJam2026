@@ -11,6 +11,7 @@ const WEAPON_AMP = 4.0
 var default_weapon_pos = Vector2.ZERO
 
 @onready var cara: AnimatedSprite2D = $"../CanvasLayer/Cara"
+@onready var niño: AnimatedSprite2D = $"../CanvasLayer/Niño"
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var weapon_holder: Control = $Pistol/CanvasLayer/Control
 @onready var health: Label = $"../CanvasLayer/Health"
@@ -45,6 +46,7 @@ var jump_buffer := false
 @export var hard_landing_threshold := -20.0
 
 var can_shoot : bool = true
+var is_carrying: bool = false
 
 func _ready() -> void:
 	health.text = str(current_health)
@@ -192,3 +194,13 @@ func _weaponbob(time) -> Vector2:
 	pos.y = sin(time * BOB_FREQ) * WEAPON_AMP
 	pos.x = cos(time * BOB_FREQ / 2) * WEAPON_AMP
 	return pos
+
+func pickup_kid():
+	is_carrying = true
+	niño.visible = true
+	print("llevo al crio")
+	
+func deliver_kid():
+	is_carrying = false
+	niño.visible = false
+	print("llevo al crio")
