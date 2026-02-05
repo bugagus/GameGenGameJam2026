@@ -14,7 +14,9 @@ var default_weapon_pos = Vector2.ZERO
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var weapon_holder: Control = $Pistol/CanvasLayer/Control
 @onready var health: Label = $"../CanvasLayer/Health"
+@onready var niño: AnimatedSprite2D = $"../CanvasLayer/Niño"
 
+var is_carrying: bool = false
 var max_health : int = 100
 var current_health : int = 100
 
@@ -26,6 +28,11 @@ var current_health : int = 100
 var dead = false
 
 @export var coyote_frames := 6
+@export var points_kid_delivery:= 100
+@export var points_kid_pick:= 100
+
+@export var time_kid_delivery:= 10
+@export var time_kid_pick:= 10
 
 var coyote := false
 var last_floor := false
@@ -50,6 +57,7 @@ var grenade = preload("res://Scenes/Grenade.tscn")
 var can_throw = true
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	health.text = str(current_health)
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
 	$JumpBufferTimer.wait_time = jump_buffer_frames  / 60.0
@@ -213,6 +221,19 @@ func grenade_throw():
 		
 		grenadeins.launch(force, up_force, direction)
 
+func pickup_kid():
+	is_carrying = true
+	ScoreManager.add_score(points_kid_pick)
+	TimeManager.add_time(time_kid_pick)
+	niño.visible = true
+	print("llevo al crio")
+	
+func deliver_kid():
+	is_carrying = false
+	ScoreManager.add_score(points_kid_delivery)
+	TimeManager.add_time(time_kid_delivery)
+	niño.visible = false
+	print("llevo al crio")
 
 func _on_throw_timer_timeout() -> void:
 	can_throw = true
