@@ -8,7 +8,7 @@ extends Node
 
 @export var dash_speed := 20.0
 @export var dash_duration := 0.25
-@export var dash_cooldown := 1.0  
+@export var dash_cooldown := 1.0
 
 var current_speed : float = 0.0
 

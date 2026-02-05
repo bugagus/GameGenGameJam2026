@@ -3,6 +3,16 @@ extends CharacterBody3D
 
 const mouse_sensitivity : float = 0.05
 
+const BOB_FREQ = 2.4
+const BOB_AMP = 0.08
+var t_bob = 0.0
+
+const WEAPON_AMP = 4.0
+var default_weapon_pos = Vector2.ZERO
+
+@onready var camera_3d: Camera3D = $Head/Camera3D
+@onready var weapon_holder: Control = $Pistol/CanvasLayer/Control
+
 var max_health : int = 100
 var current_health : int = 100
 
@@ -35,6 +45,7 @@ var jump_buffer := false
 func _ready() -> void:
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
 	$JumpBufferTimer.wait_time = jump_buffer_frames  / 60.0
+	default_weapon_pos = $Pistol/CanvasLayer/Control.position
 
 
 func _physics_process(delta: float) -> void:
@@ -74,6 +85,10 @@ func _physics_process(delta: float) -> void:
 		jumping = false
 	
 	var prev_velocity_y = velocity.y
+	
+	t_bob += delta * velocity.length() * float(is_on_floor())
+	$Head/Camera3D.transform.origin = _headbob(t_bob)
+	$Pistol/CanvasLayer/Control.position = default_weapon_pos + _weaponbob(t_bob)
 	
 	move_and_slide()
 	
@@ -141,3 +156,15 @@ func _on_coyote_timer_timeout() -> void:
 	
 func _on_jump_buffer_timer_timeout() -> void:
 	jump_buffer = false
+
+func _headbob(time) -> Vector3:
+	var pos = Vector3.ZERO
+	pos.y = sin(time * BOB_FREQ) * BOB_AMP
+	pos.x = cos(time * BOB_FREQ / 2) * BOB_AMP
+	return pos
+
+func _weaponbob(time) -> Vector2:
+	var pos = Vector2.ZERO
+	pos.y = sin(time * BOB_FREQ) * WEAPON_AMP
+	pos.x = cos(time * BOB_FREQ / 2) * WEAPON_AMP
+	return pos
