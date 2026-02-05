@@ -18,6 +18,7 @@ config/icon="res://Assets/Sprites/icon.svg"
 [autoload]
 
 ScoreManager="*uid://bvi8qcvodwksj"
+TimeManager="*uid://dlydi4uamhxay"
 
 [global_group]
 
