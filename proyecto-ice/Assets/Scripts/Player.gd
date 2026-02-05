@@ -33,7 +33,7 @@ var jumping := false
 
 var max_shoot_distance: float = 100.0
 var max_damage : float = 50.0
-@export var jump_cut_multiplier := 0.35
+@export var jump_cut_multiplier := 0.5
 @export var jump_buffer_frames := 6
 
 var jump_buffer := false
@@ -42,7 +42,9 @@ var jump_buffer := false
 @export var cam_lerp_speed := 8.0
 @export var dash_cam_tilt := 4.0
 
-@export var hard_landing_threshold := -8.0
+@export var hard_landing_threshold := -20.0
+
+var can_shoot : bool = true
 
 func _ready() -> void:
 	health.text = str(current_health)
@@ -150,22 +152,28 @@ func _process(_delta) -> void:
 		shoot()
 		
 func shoot():
-	Anima.animation = "Shoot"
-	Anima.frame = 0 
-	Anima.play()
-	if has_node("ShootSound"):
-		$ShootSound.play()    
+	if can_shoot:
+		Anima.animation = "Shoot"
+		can_shoot = false
+		Anima.frame = 0 
+		Anima.play()
+		if has_node("ShootSound"):
+			$ShootSound.play()    
+			
+		if ray_cast_3d.is_colliding() and ray_cast_3d.get_collider().has_method("take_damage"):
+			if ray_cast_3d.get_collider().has_method("take_damage"):
+				var distance = ray_cast_3d.global_position.distance_to(ray_cast_3d.get_collider().global_position)
+				var damage_multiplier = 1.0 - (distance/max_shoot_distance)
+				var damage = max_damage * damage_multiplier
+				ray_cast_3d.get_collider().take_damage(damage)
+				print("Disparo a agente guarro")
+			else:
+				print("Disparo a mierdon")
 		
-	if ray_cast_3d.is_colliding() and ray_cast_3d.get_collider().has_method("take_damage"):
-		if ray_cast_3d.get_collider().has_method("take_damage"):
-			var distance = ray_cast_3d.global_position.distance_to(ray_cast_3d.get_collider().global_position)
-			var damage_multiplier = 1.0 - (distance/max_shoot_distance)
-			var damage = max_damage * damage_multiplier
-			ray_cast_3d.get_collider().take_damage(damage)
-			print("Disparo a agente guarro")
-		else:
-			print("Disparo a mierdon")
-	$ShootSound.play()
+		$ShootSound.play()
+		await Anima.animation_finished
+		Anima.play("Idle")
+		can_shoot = true
 	
 func _on_coyote_timer_timeout() -> void:
 	coyote = false
