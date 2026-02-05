@@ -18,6 +18,8 @@ var gravity = 9.8
 var dead = false
 var can_attack = true
 
+@export var score_value: int = 100
+
 func _ready():
 	navigation_agent.set_move_speed(move_speed)
 	
@@ -55,6 +57,7 @@ func spawn_bullet():
 
 func die():
 	dead = true
+	ScoreManager.add_score(score_value)
 	$AudioStreamPlayer3D.stop()
 	animated_sprite_3d.play("death")
 	$CollisionShape3D.set_deferred("disabled", true)
