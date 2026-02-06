@@ -5,13 +5,15 @@
 [ext_resource type="PackedScene" uid="uid://ccl6buarlr4yu" path="res://Scenes/Botiquin.tscn" id="2_ti1bm"]
 [ext_resource type="PackedScene" uid="uid://bctgb8iyyvkfs" path="res://Scenes/Enemy.tscn" id="3_bcbcq"]
 [ext_resource type="PackedScene" uid="uid://buqw7drn2cci2" path="res://Scenes/RangedEnemy.tscn" id="4_p70al"]
+[ext_resource type="Texture2D" uid="uid://c5ob5xj0h3w1q" path="res://Assets/Sprites/Shoot4.png" id="8_7yo87"]
 [ext_resource type="Script" uid="uid://cyd1rorcmy4la" path="res://Assets/Scripts/label.gd" id="8_8l3nt"]
 [ext_resource type="Script" uid="uid://bkelminogfgum" path="res://Assets/Scripts/HUD.gd" id="8_op4cu"]
-[ext_resource type="Texture2D" uid="uid://w31elcyd8qt1" path="res://Assets/Sprites/Manis/Derecha/Ilustración_sin_título.png" id="8_ti1bm"]
-[ext_resource type="Texture2D" uid="uid://csjw28ain6ycf" path="res://Assets/Sprites/Manis/Izquierda/Ilustración_sin_título.png" id="9_op4cu"]
-[ext_resource type="PackedScene" path="res://Scenes/Kid.tscn" id="13_op4cu"]
+[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="9_ti1bm"]
+[ext_resource type="Texture2D" uid="uid://dyvayiqbxajh6" path="res://Assets/Sprites/Shoot2.png" id="10_op4cu"]
+[ext_resource type="Texture2D" uid="uid://cgwsq1lqsy61d" path="res://Assets/Sprites/Shoot1.png" id="11_8l3nt"]
+[ext_resource type="PackedScene" uid="uid://b1uvxlttyvg8" path="res://Scenes/Kid.tscn" id="13_op4cu"]
 [ext_resource type="Script" uid="uid://dlydi4uamhxay" path="res://Assets/Scripts/TimeManager.gd" id="14_8l3nt"]
-[ext_resource type="PackedScene" path="res://Scenes/DeliverZone.tscn" id="14_kwl8l"]
+[ext_resource type="PackedScene" uid="uid://d2scrblftmjn7" path="res://Scenes/DeliverZone.tscn" id="14_kwl8l"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c6gwx"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -34,18 +36,34 @@ polygons = [PackedInt32Array(0, 3, 1), PackedInt32Array(1, 3, 2), PackedInt32Arr
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("8_ti1bm")
+"texture": ExtResource("8_7yo87")
 }],
 "loop": true,
-"name": &"Con",
+"name": &"100",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("9_op4cu")
+"texture": ExtResource("9_ti1bm")
 }],
 "loop": true,
-"name": &"Sin",
+"name": &"25",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_op4cu")
+}],
+"loop": true,
+"name": &"50",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_8l3nt")
+}],
+"loop": true,
+"name": &"75",
 "speed": 5.0
 }]
 
@@ -96,7 +114,7 @@ script = ExtResource("8_8l3nt")
 [node name="Cara" type="AnimatedSprite2D" parent="CanvasLayer" unique_id=1271937046]
 position = Vector2(1109, 598)
 sprite_frames = SubResource("SpriteFrames_kwl8l")
-animation = &"Sin"
+animation = &"50"
 
 [node name="Health" type="Label" parent="CanvasLayer" unique_id=449118948]
 offset_top = 625.0
@@ -116,13 +134,10 @@ grow_vertical = 0
 script = ExtResource("14_8l3nt")
 
 [node name="Niño" type="AnimatedSprite2D" parent="CanvasLayer" unique_id=1306804339]
-texture_filter = 1
-texture_repeat = 1
-position = Vector2(280, 404)
-scale = Vector2(5, 5)
+visible = false
+position = Vector2(50, 594)
 sprite_frames = SubResource("SpriteFrames_kwl8l")
-animation = &"Sin"
-autoplay = "Sin"
+animation = &"50"
 
 [node name="Kid" parent="." unique_id=1419835274 instance=ExtResource("13_op4cu")]
 
