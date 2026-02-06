@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody3D
 
-const mouse_sensitivity : float = 0.05
+@export var mouse_sensitivity: float = 0.05
 
 const BOB_FREQ = 2.4
 const BOB_AMP = 0.08
@@ -10,10 +10,10 @@ var t_bob = 0.0
 const WEAPON_AMP = 4.0
 var default_weapon_pos = Vector2.ZERO
 
-@onready var cara: AnimatedSprite2D = $"../CanvasLayer/Cara"
+@onready var cara: AnimatedSprite2D = $"../HUD/Cara"
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var weapon_holder: Control = $Pistol/CanvasLayer/Control
-@onready var health: Label = $"../CanvasLayer/Health"
+@onready var health: Label = $"../HUD/Health"
 
 var max_health : int = 100
 var current_health : int = 100
@@ -49,11 +49,14 @@ var can_shoot : bool = true
 var grenade = preload("res://Scenes/Grenade.tscn") 
 var can_throw = true
 
+@onready var damage_overlay: ColorRect = $"../HUD/DamageOverlay"
+
 func _ready() -> void:
 	health.text = str(current_health)
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
 	$JumpBufferTimer.wait_time = jump_buffer_frames  / 60.0
 	default_weapon_pos = $Pistol/CanvasLayer/Control.position
+	damage_overlay.modulate.a = 0.0
 
 
 func _physics_process(delta: float) -> void:
@@ -216,3 +219,4 @@ func grenade_throw():
 
 func _on_throw_timer_timeout() -> void:
 	can_throw = true
+	
