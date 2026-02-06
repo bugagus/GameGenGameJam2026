@@ -9,6 +9,7 @@ var t_bob = 0.0
 
 const WEAPON_AMP = 4.0
 var default_weapon_pos = Vector2.ZERO
+var default_hand_pos = Vector2.ZERO
 
 @onready var cara: AnimatedSprite2D = $"../CanvasLayer/Cara"
 @onready var camera_3d: Camera3D = $Head/Camera3D
@@ -64,6 +65,7 @@ func _ready() -> void:
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
 	$JumpBufferTimer.wait_time = jump_buffer_frames  / 60.0
 	default_weapon_pos = $Pistol/CanvasLayer/Control.position
+	default_hand_pos = $"../CanvasLayer/Niño".position
 
 func _process(delta):
 	if vibration_force > 0.01:
@@ -117,6 +119,8 @@ func _physics_process(delta: float) -> void:
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	$Head/Camera3D.transform.origin = _headbob(t_bob)
 	$Pistol/CanvasLayer/Control.position = default_weapon_pos + _weaponbob(t_bob)
+	$"../CanvasLayer/Niño".position = default_hand_pos + _weaponbob(t_bob)
+
 	
 	move_and_slide()
 	
@@ -235,14 +239,14 @@ func pickup_kid():
 	is_carrying = true
 	ScoreManager.add_score(points_kid_pick)
 	TimeManager.add_time(time_kid_pick)
-	niño.visible = true
+	niño.play("Con")
 	print("llevo al crio")
 	
 func deliver_kid():
 	is_carrying = false
 	ScoreManager.add_score(points_kid_delivery)
 	TimeManager.add_time(time_kid_delivery)
-	niño.visible = false
+	niño.play("Sin")
 	print("llevo al crio")
 
 func _on_throw_timer_timeout() -> void:

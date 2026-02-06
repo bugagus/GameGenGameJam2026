@@ -1,8 +1,9 @@
-[gd_scene format=3 uid="uid://b1uvxlttyvg8"]
+[gd_scene format=3 uid="uid://bj38gll3bc1pa"]
 
 [ext_resource type="Texture2D" uid="uid://lg8q3lvcjm8e" path="res://Assets/Sprites/Idle.png" id="1_6e8rd"]
-[ext_resource type="Script" uid="uid://dc5wwbyet6usf" path="res://Scenes/Kid.gd" id="1_g0ojp"]
-[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="2_vfmte"]
+[ext_resource type="Script" path="res://Scenes/Kid.gd" id="1_g0ojp"]
+[ext_resource type="Texture2D" uid="uid://brl2ity0msbsk" path="res://Assets/Sprites/Niños/IMG_0513.PNG" id="3_8w2m0"]
+[ext_resource type="Texture2D" uid="uid://pamsqve8mqfe" path="res://Assets/Sprites/Niños/IMG_0514.PNG" id="4_11b25"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j2kox"]
 
@@ -19,8 +20,11 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_vfmte")
+"duration": 4.0,
+"texture": ExtResource("3_8w2m0")
+}, {
+"duration": 4.0,
+"texture": ExtResource("4_11b25")
 }],
 "loop": true,
 "name": &"idle_kid",
@@ -39,6 +43,7 @@ shape = SubResource("CapsuleShape3D_j2kox")
 shape = SubResource("CapsuleShape3D_6e8rd")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1227427315]
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_vfmte")
 animation = &"idle_kid"
 autoplay = "idle_enemy"

@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://0wwoyt1axoxb" path="res://Assets/Sprites/ICE/Walk/IMG_0492.PNG" id="21_ntwgn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tt7e2"]
+height = 1.6
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s7bn3"]
 animations = [{
@@ -123,12 +124,12 @@ script = ExtResource("1_s7bn3")
 navigation_agent = NodePath("NavigationAgent3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=904254751]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_tt7e2")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1626554141]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0)
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 0, 0)
 billboard = 2
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_s7bn3")
 animation = &"attack"
 autoplay = "idle"
