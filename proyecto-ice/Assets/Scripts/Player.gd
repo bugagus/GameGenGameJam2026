@@ -11,11 +11,12 @@ const WEAPON_AMP = 4.0
 var default_weapon_pos = Vector2.ZERO
 var default_hand_pos = Vector2.ZERO
 
-@onready var cara: AnimatedSprite2D = $"../HUD/Cara"
+@onready var cara: AnimatedSprite2D = $"../Hud/Cara"
 @onready var camera_3d: Camera3D = $Head/Camera3D
-@onready var weapon_holder: Control = $Pistol/CanvasLayer/Control
-@onready var health: Label = $"../CanvasLayer/Health"
-@onready var niño: AnimatedSprite2D = $"../CanvasLayer/Niño"
+@onready var weapon_holder: Control = $"../Hud/Pistol"
+@onready var health: Label = $"../Hud/Health"
+@onready var niño: AnimatedSprite2D = $"../Hud/Niño/Niño"
+@onready var pistol: Control = $"../Hud/Pistol"
 
 var is_carrying: bool = false
 var max_health : int = 100
@@ -25,7 +26,7 @@ var vibration_force: float = 0
 
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
 @onready var head: Node3D = $Head
-@onready var Anima: AnimatedSprite2D = $Pistol/CanvasLayer/Control/AnimatedSprite2D
+@onready var Anima: AnimatedSprite2D = pistol.get_node("AnimatedSprite2D")
 @onready var movement_input_component : MovementInputComponent = MovementInputComponent.new()
 @export var movement_component : MovementComponent = null
 var dead = false
@@ -59,15 +60,13 @@ var can_shoot : bool = true
 var grenade = preload("res://Scenes/Grenade.tscn") 
 var can_throw = true
 
-@onready var damage_overlay: ColorRect = $"../HUD/DamageOverlay"
-
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	health.text = str(current_health)
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
 	$JumpBufferTimer.wait_time = jump_buffer_frames  / 60.0
-	default_weapon_pos = $Pistol/CanvasLayer/Control.position
-	default_hand_pos = $"../CanvasLayer/Niño".position
+	default_weapon_pos = pistol.position
+	default_hand_pos = niño.position
 
 func _process(delta):
 	if vibration_force > 0.01:
@@ -120,8 +119,8 @@ func _physics_process(delta: float) -> void:
 	
 	t_bob += delta * velocity.length() * float(is_on_floor())
 	$Head/Camera3D.transform.origin = _headbob(t_bob)
-	$Pistol/CanvasLayer/Control.position = default_weapon_pos + _weaponbob(t_bob)
-	$"../CanvasLayer/Niño".position = default_hand_pos + _weaponbob(t_bob)
+	pistol.position = default_weapon_pos + _weaponbob(t_bob)
+	niño.position = default_hand_pos + _weaponbob(t_bob)
 
 	
 	move_and_slide()

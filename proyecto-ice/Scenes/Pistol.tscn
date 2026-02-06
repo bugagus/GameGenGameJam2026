@@ -1,15 +1,30 @@
 [gd_scene format=3 uid="uid://c4dnggjqsimfw"]
 
-[ext_resource type="Texture2D" uid="uid://cdd8abvtopqkv" path="res://Assets/Sprites/Manis/Arma/IMG_0515.PNG" id="2_gf3gw"]
-[ext_resource type="Texture2D" uid="uid://bsy1mouex2j1w" path="res://Assets/Sprites/Manis/Arma/IMG_0516.PNG" id="3_66ecx"]
+[ext_resource type="Texture2D" uid="uid://7aarj4iucomm" path="res://Assets/Sprites/Manis/Arma/spritesheet mano manis disparando.png" id="2_ebdfm"]
 [ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="6_b14gw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf3gw"]
+atlas = ExtResource("2_ebdfm")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66ecx"]
+atlas = ExtResource("2_ebdfm")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cq6gf"]
+atlas = ExtResource("2_ebdfm")
+region = Rect2(400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b14gw"]
+atlas = ExtResource("2_ebdfm")
+region = Rect2(600, 0, 200, 200)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n8kc8"]
 resource_name = "Shoot"
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_gf3gw")
+"texture": SubResource("AtlasTexture_gf3gw")
 }],
 "loop": true,
 "name": &"Idle",
@@ -17,17 +32,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_gf3gw")
+"texture": SubResource("AtlasTexture_66ecx")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_66ecx")
+"texture": SubResource("AtlasTexture_cq6gf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b14gw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cq6gf")
 }],
 "loop": false,
 "name": &"Shoot",
 "speed": 10.0
 }]
 
-[node name="Pistol" type="Node3D" unique_id=1016405071]
+[node name="Pistol" type="Node2D" unique_id=2058108486]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1003022651]
 
@@ -62,6 +83,5 @@ size_flags_vertical = 4
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer/Control" unique_id=1573476660]
 texture_filter = 3
 position = Vector2(-326.00003, -245.00003)
-scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_n8kc8")
-animation = &"Idle"
+animation = &"Shoot"

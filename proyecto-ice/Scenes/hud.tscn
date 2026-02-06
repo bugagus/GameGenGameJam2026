@@ -1,67 +1,103 @@
 [gd_scene format=3 uid="uid://chguhk5g14crr"]
 
-[ext_resource type="Script" uid="uid://bkelminogfgum" path="res://Assets/Scripts/HUD.gd" id="1_8jye8"]
-[ext_resource type="Script" uid="uid://cyd1rorcmy4la" path="res://Assets/Scripts/label.gd" id="2_43w4t"]
-[ext_resource type="Texture2D" uid="uid://c5ob5xj0h3w1q" path="res://Assets/Sprites/Shoot4.png" id="3_7gr8i"]
-[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="4_5ep0j"]
-[ext_resource type="Texture2D" uid="uid://dyvayiqbxajh6" path="res://Assets/Sprites/Shoot2.png" id="5_4f5kr"]
-[ext_resource type="Texture2D" uid="uid://cgwsq1lqsy61d" path="res://Assets/Sprites/Shoot1.png" id="6_piegi"]
-[ext_resource type="Script" uid="uid://dlydi4uamhxay" path="res://Assets/Scripts/TimeManager.gd" id="7_i2avg"]
+[ext_resource type="Script" uid="uid://cyd1rorcmy4la" path="res://Assets/Scripts/label.gd" id="1_3jfbl"]
+[ext_resource type="Texture2D" uid="uid://w31elcyd8qt1" path="res://Assets/Sprites/Manis/Derecha/Ilustración_sin_título.png" id="2_3j5vs"]
+[ext_resource type="Texture2D" uid="uid://csjw28ain6ycf" path="res://Assets/Sprites/Manis/Izquierda/Ilustración_sin_título.png" id="3_rhayu"]
+[ext_resource type="Script" uid="uid://dlydi4uamhxay" path="res://Assets/Scripts/TimeManager.gd" id="4_gyfy3"]
+[ext_resource type="Texture2D" uid="uid://tuo8nofyk2mk" path="res://Assets/Sprites/HUD/Hud3.png" id="5_3j5vs"]
+[ext_resource type="Texture2D" uid="uid://ck1pfjnjraj52" path="res://Assets/Sprites/Manis/Arma/mirilla.png" id="6_gyfy3"]
+[ext_resource type="Texture2D" uid="uid://diig1yvhfr1h6" path="res://Assets/Sprites/Manis/Arma/spritesheet mano manis disparando.png" id="7_xy7gf"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_kwl8l"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_xy7gf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_7gr8i")
+"texture": ExtResource("2_3j5vs")
 }],
 "loop": true,
-"name": &"100",
+"name": &"Con",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_5ep0j")
+"texture": ExtResource("3_rhayu")
 }],
 "loop": true,
-"name": &"25",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_4f5kr")
-}],
-"loop": true,
-"name": &"50",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("6_piegi")
-}],
-"loop": true,
-"name": &"75",
+"name": &"Sin",
 "speed": 5.0
 }]
 
-[node name="HUD" type="CanvasLayer" unique_id=693455303]
-script = ExtResource("1_8jye8")
+[sub_resource type="SpriteFrames" id="SpriteFrames_mo077"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_gyfy3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
-[node name="ScoreLabel" type="Label" parent="." unique_id=918769580]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gyfy3"]
+atlas = ExtResource("7_xy7gf")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xy7gf"]
+atlas = ExtResource("7_xy7gf")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvfq2"]
+atlas = ExtResource("7_xy7gf")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo077"]
+atlas = ExtResource("7_xy7gf")
+region = Rect2(300, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vvfq2"]
+resource_name = "Shoot"
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gyfy3")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xy7gf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvfq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mo077")
+}],
+"loop": false,
+"name": &"Shoot",
+"speed": 13.0
+}]
+
+[node name="Hud" type="CanvasLayer" unique_id=1766224237]
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=1210498211]
 offset_right = 40.0
 offset_bottom = 23.0
-script = ExtResource("2_43w4t")
+script = ExtResource("1_3jfbl")
 
-[node name="Cara" type="AnimatedSprite2D" parent="." unique_id=1442110316]
+[node name="Cara" type="AnimatedSprite2D" parent="." unique_id=1309205771]
 position = Vector2(1109, 598)
-sprite_frames = SubResource("SpriteFrames_kwl8l")
-animation = &"50"
+sprite_frames = SubResource("SpriteFrames_xy7gf")
+animation = &"Sin"
 
-[node name="Health" type="Label" parent="." unique_id=1354538849]
+[node name="Health" type="Label" parent="." unique_id=2137937519]
 offset_top = 625.0
 offset_right = 40.0
 offset_bottom = 648.0
 
-[node name="TimeLabel" type="Label" parent="." unique_id=981769705]
+[node name="TimeLabel" type="Label" parent="." unique_id=430544472]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -71,13 +107,75 @@ offset_left = -40.0
 offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
-script = ExtResource("7_i2avg")
+script = ExtResource("4_gyfy3")
 
-[node name="DamageOverlay" type="ColorRect" parent="." unique_id=1197028208]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
+[node name="Control" type="Control" parent="." unique_id=199030823]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=8303417]
+texture_filter = 1
+position = Vector2(0, -368)
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("5_3j5vs")
+
+[node name="Crosshair" type="Control" parent="." unique_id=1549597938]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0, 0, 1)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Crosshair" unique_id=683250297]
+sprite_frames = SubResource("SpriteFrames_mo077")
+
+[node name="Pistol" type="Control" parent="." unique_id=878490298]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_vertical = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Pistol" unique_id=196500171]
+z_index = -1
+texture_filter = 3
+position = Vector2(-305, -254)
+scale = Vector2(2.2, 2.2)
+sprite_frames = SubResource("SpriteFrames_vvfq2")
+animation = &"Shoot"
+
+[node name="Niño" type="Control" parent="." unique_id=1243232636]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="Niño" type="AnimatedSprite2D" parent="Niño" unique_id=962566354]
+z_index = -1
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(303.99997, -215)
+scale = Vector2(2.2, 2.2)
+sprite_frames = SubResource("SpriteFrames_xy7gf")
+animation = &"Con"
+autoplay = "Sin"

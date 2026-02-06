@@ -20,6 +20,15 @@ config/icon="res://Assets/Sprites/icon.svg"
 ScoreManager="*uid://bvi8qcvodwksj"
 TimeManager="*uid://dlydi4uamhxay"
 
+[display]
+
+window/size/viewport_width=1080
+window/size/viewport_height=720
+window/size/window_width_override=1920
+window/size/window_height_override=1080
+window/stretch/mode="canvas_items"
+window/vsync/vsync_mode=0
+
 [global_group]
 
 Player=""
@@ -99,4 +108,5 @@ Pause={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

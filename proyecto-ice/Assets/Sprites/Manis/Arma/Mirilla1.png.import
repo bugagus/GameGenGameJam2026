@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsy1mouex2j1w"
-path="res://.godot/imported/IMG_0516.PNG-b0686f6be7c6d6ad1718abaaeb7714e6.ctex"
+uid="uid://dx36x57618dox"
+path="res://.godot/imported/Mirilla1.png-cd824a00e4d5f8779019a88686bee6c8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Manis/Arma/IMG_0516.PNG"
-dest_files=["res://.godot/imported/IMG_0516.PNG-b0686f6be7c6d6ad1718abaaeb7714e6.ctex"]
+source_file="res://Assets/Sprites/Manis/Arma/Mirilla1.png"
+dest_files=["res://.godot/imported/Mirilla1.png-cd824a00e4d5f8779019a88686bee6c8.ctex"]
 
 [params]
 

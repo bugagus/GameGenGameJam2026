@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://dchqkiiiwktrp"]
 
-[ext_resource type="PackedScene" uid="uid://c4dnggjqsimfw" path="res://Scenes/Pistol.tscn" id="1_glv2v"]
 [ext_resource type="Script" uid="uid://vr1fvjkn6xmm" path="res://Assets/Scripts/Player.gd" id="1_kpjcp"]
 [ext_resource type="PackedScene" uid="uid://bujg4j35m60mw" path="res://Assets/Components/movement_component.tscn" id="3_kne1u"]
 [ext_resource type="AudioStream" uid="uid://c4fdhrjj20xh1" path="res://Assets/Sounds/BANG sound effect Inuyashiki(MP3_160K).mp3" id="4_e80uo"]
@@ -23,8 +22,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="GrenadePos" type="Marker3D" parent="Head" unique_id=1296489194]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.67081106)
-
-[node name="Pistol" parent="." unique_id=1016405071 instance=ExtResource("1_glv2v")]
 
 [node name="MovementComponent" parent="." unique_id=291293879 instance=ExtResource("3_kne1u")]
 

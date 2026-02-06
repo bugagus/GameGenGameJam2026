@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdd8abvtopqkv"
-path="res://.godot/imported/IMG_0515.PNG-5c220083e46228c993372b3476c92beb.ctex"
+uid="uid://cr66tetf13lk8"
+path="res://.godot/imported/Hud2.png-2579beca45ca363f19e634f000661822.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Manis/Arma/IMG_0515.PNG"
-dest_files=["res://.godot/imported/IMG_0515.PNG-5c220083e46228c993372b3476c92beb.ctex"]
+source_file="res://Assets/Sprites/HUD/Hud2.png"
+dest_files=["res://.godot/imported/Hud2.png-2579beca45ca363f19e634f000661822.ctex"]
 
 [params]
 
