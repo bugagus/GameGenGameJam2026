@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://bigg16w47258m"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/pause_menu.gd" id="1_emv3i"]
+[ext_resource type="Script" uid="uid://cni7nre6bj6d3" path="res://Assets/Scripts/pause_menu.gd" id="1_emv3i"]
+[ext_resource type="FontFile" uid="uid://c3tx1jv64cooj" path="res://Assets/Fonts/HomeVideoBold-R90Dv.ttf" id="2_k0w1u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_emv3i"]
 content_margin_left = 20.0
 content_margin_top = 20.0
 content_margin_right = 20.0
 content_margin_bottom = 20.0
-bg_color = Color(0.16924527, 0.1692453, 0.16924527, 1)
+bg_color = Color(0.16862746, 0.16862746, 0.16862746, 0.70980394)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
@@ -60,6 +61,7 @@ alignment = 1
 
 [node name="Pausa" type="Label" parent="Panel/VBoxContainer" unique_id=1694202901]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_k0w1u")
 theme_override_font_sizes/font_size = 32
 text = "Pausa"
 horizontal_alignment = 1
