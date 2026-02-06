@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://chguhk5g14crr"]
+
+[ext_resource type="Script" uid="uid://bkelminogfgum" path="res://Assets/Scripts/HUD.gd" id="1_8jye8"]
+[ext_resource type="Script" uid="uid://cyd1rorcmy4la" path="res://Assets/Scripts/label.gd" id="2_43w4t"]
+[ext_resource type="Texture2D" uid="uid://c5ob5xj0h3w1q" path="res://Assets/Sprites/Shoot4.png" id="3_7gr8i"]
+[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="4_5ep0j"]
+[ext_resource type="Texture2D" uid="uid://dyvayiqbxajh6" path="res://Assets/Sprites/Shoot2.png" id="5_4f5kr"]
+[ext_resource type="Texture2D" uid="uid://cgwsq1lqsy61d" path="res://Assets/Sprites/Shoot1.png" id="6_piegi"]
+[ext_resource type="Script" uid="uid://dlydi4uamhxay" path="res://Assets/Scripts/TimeManager.gd" id="7_i2avg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kwl8l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7gr8i")
+}],
+"loop": true,
+"name": &"100",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_5ep0j")
+}],
+"loop": true,
+"name": &"25",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_4f5kr")
+}],
+"loop": true,
+"name": &"50",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_piegi")
+}],
+"loop": true,
+"name": &"75",
+"speed": 5.0
+}]
+
+[node name="HUD" type="CanvasLayer" unique_id=693455303]
+script = ExtResource("1_8jye8")
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=918769580]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("2_43w4t")
+
+[node name="Cara" type="AnimatedSprite2D" parent="." unique_id=1442110316]
+position = Vector2(1109, 598)
+sprite_frames = SubResource("SpriteFrames_kwl8l")
+animation = &"50"
+
+[node name="Health" type="Label" parent="." unique_id=1354538849]
+offset_top = 625.0
+offset_right = 40.0
+offset_bottom = 648.0
+
+[node name="TimeLabel" type="Label" parent="." unique_id=981769705]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("7_i2avg")
+
+[node name="DamageOverlay" type="ColorRect" parent="." unique_id=1197028208]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0, 0, 1)

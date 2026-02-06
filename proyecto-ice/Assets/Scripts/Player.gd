@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody3D
 
-const mouse_sensitivity : float = 0.05
+@export var mouse_sensitivity: float = 0.05
 
 const BOB_FREQ = 2.4
 const BOB_AMP = 0.08
@@ -11,7 +11,7 @@ const WEAPON_AMP = 4.0
 var default_weapon_pos = Vector2.ZERO
 var default_hand_pos = Vector2.ZERO
 
-@onready var cara: AnimatedSprite2D = $"../CanvasLayer/Cara"
+@onready var cara: AnimatedSprite2D = $"../HUD/Cara"
 @onready var camera_3d: Camera3D = $Head/Camera3D
 @onready var weapon_holder: Control = $Pistol/CanvasLayer/Control
 @onready var health: Label = $"../CanvasLayer/Health"
@@ -58,6 +58,8 @@ var can_shoot : bool = true
 
 var grenade = preload("res://Scenes/Grenade.tscn") 
 var can_throw = true
+
+@onready var damage_overlay: ColorRect = $"../HUD/DamageOverlay"
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
