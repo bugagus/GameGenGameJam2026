@@ -23,7 +23,6 @@ script = ExtResource("1_rxcpo")
 shape = SubResource("SphereShape3D_14k66")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1152549774]
-billboard = 2
 sprite_frames = SubResource("SpriteFrames_sm1ih")
 animation = &"idle"
 autoplay = "idle"

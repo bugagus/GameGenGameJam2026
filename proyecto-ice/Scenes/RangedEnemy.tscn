@@ -44,10 +44,7 @@ collision_mask = 3
 script = ExtResource("1_lm0bq")
 bullet_scene = ExtResource("2_c2ypk")
 attack_range = 2.0
-attack_cooldown_time = null
-move_speed = null
 navigation_agent = NodePath("NavigationAgent3D")
-detection_range = null
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=904254751]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

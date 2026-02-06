@@ -1,54 +1,53 @@
-[gd_scene format=3 uid="uid://b1uvxlttyvg8"]
+[gd_scene format=3 uid="uid://bj38gll3bc1pa"]
 
-[ext_resource type="Script" uid="uid://dc5wwbyet6usf" path="res://Scenes/Kid.gd" id="1_g0ojp"]
-[ext_resource type="Texture2D" uid="uid://lg8q3lvcjm8e" path="res://Assets/Sprites/Idle.png" id="1_vfmte"]
-[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="2_g0ojp"]
+[ext_resource type="Texture2D" uid="uid://lg8q3lvcjm8e" path="res://Assets/Sprites/Idle.png" id="1_6e8rd"]
+[ext_resource type="Script" path="res://Scenes/Kid.gd" id="1_g0ojp"]
+[ext_resource type="Texture2D" uid="uid://brl2ity0msbsk" path="res://Assets/Sprites/Niños/IMG_0513.PNG" id="3_8w2m0"]
+[ext_resource type="Texture2D" uid="uid://pamsqve8mqfe" path="res://Assets/Sprites/Niños/IMG_0514.PNG" id="4_11b25"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_j2kox"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_6e8rd"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6e8rd"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vfmte"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_vfmte")
+"texture": ExtResource("1_6e8rd")
 }],
 "loop": true,
 "name": &"idle_enemy",
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_g0ojp")
+"duration": 4.0,
+"texture": ExtResource("3_8w2m0")
+}, {
+"duration": 4.0,
+"texture": ExtResource("4_11b25")
 }],
 "loop": true,
 "name": &"idle_kid",
 "speed": 5.0
 }]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_vfmte"]
-
-[node name="Kid" type="CharacterBody3D" unique_id=1787995426]
-disable_mode = 2
-collision_mask = 2
+[node name="Kid" type="CharacterBody3D" unique_id=1419835274]
 script = ExtResource("1_g0ojp")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=848493596]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=432794038]
 shape = SubResource("CapsuleShape3D_j2kox")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1575744464]
-billboard = 2
-sprite_frames = SubResource("SpriteFrames_6e8rd")
-animation = &"idle_enemy"
+[node name="PickupArea" type="Area3D" parent="." unique_id=1153679238]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea" unique_id=1163203516]
+shape = SubResource("CapsuleShape3D_6e8rd")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1227427315]
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_vfmte")
+animation = &"idle_kid"
 autoplay = "idle_enemy"
 
-[node name="Label3D" type="Label3D" parent="." unique_id=509615890]
-billboard = 2
-
-[node name="GroundCircle" type="MeshInstance3D" parent="." unique_id=1707407754]
-
-[node name="PickupArea" type="Area3D" parent="." unique_id=129757404]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea" unique_id=14913655]
-shape = SubResource("CylinderShape3D_vfmte")
+[node name="Label3D" type="Label3D" parent="." unique_id=147434478]
 
 [connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]
