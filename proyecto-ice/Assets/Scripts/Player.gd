@@ -1,7 +1,7 @@
 class_name Player
 extends CharacterBody3D
 
-const mouse_sensitivity : float = 0.05
+@export var mouse_sensitivity: float = 0.05
 
 const BOB_FREQ = 2.4
 const BOB_AMP = 0.08
@@ -60,6 +60,8 @@ var is_carrying: bool = false
 
 var grenade = preload("res://Scenes/Grenade.tscn") 
 var can_throw = true
+
+@onready var damage_overlay: ColorRect = $"../HUD/DamageOverlay"
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
