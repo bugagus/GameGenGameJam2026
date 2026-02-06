@@ -1,5 +1,7 @@
 class_name Enemy
 extends CharacterBody3D
+signal died
+
 
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
 
@@ -61,6 +63,7 @@ func die():
 	animated_sprite_3d.play("death")
 	navigation_agent.set_move_speed(0)
 	$CollisionShape3D.set_deferred("disabled", true)
+	emit_signal("died", self)
 	await animated_sprite_3d.animation_finished
 	queue_free()
 
@@ -82,5 +85,6 @@ func death_by_granade() -> void:
 	navigation_agent.set_move_speed(0)
 	animated_sprite_3d.play("death_granade")
 	$CollisionShape3D.set_deferred("disabled", true)
+	emit_signal("died", self)
 	await animated_sprite_3d.animation_finished
 	queue_free()

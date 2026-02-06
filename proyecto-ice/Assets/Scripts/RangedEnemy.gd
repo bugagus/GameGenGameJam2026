@@ -1,5 +1,6 @@
 class_name RangedEnemy
 extends CharacterBody3D
+signal died
 
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
 @export var bullet_scene : PackedScene
@@ -19,6 +20,7 @@ var dead = false
 var can_attack = true
 
 @export var score_value: int = 100
+@export var time_value: int = 10
 
 func _ready():
 	navigation_agent.set_move_speed(move_speed)
@@ -61,6 +63,19 @@ func die():
 	$AudioStreamPlayer3D.stop()
 	animated_sprite_3d.play("death")
 	$CollisionShape3D.set_deferred("disabled", true)
+	emit_signal("died", self)
+	await animated_sprite_3d.animation_finished
+	queue_free()
+
+func death_by_granade() -> void:
+	dead = true
+	ScoreManager.add_score(score_value)
+	TimeManager.add_time(time_value)
+	$AudioStreamPlayer3D.stop()
+	navigation_agent.set_move_speed(0)
+	animated_sprite_3d.play("death_granade")
+	$CollisionShape3D.set_deferred("disabled", true)
+	emit_signal("died", self)
 	await animated_sprite_3d.animation_finished
 	queue_free()
 
