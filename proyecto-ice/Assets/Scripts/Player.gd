@@ -55,6 +55,7 @@ var jump_buffer := false
 @export var hard_landing_threshold := -20.0
 
 var can_shoot : bool = true
+var is_carrying: bool = false
 
 var grenade = preload("res://Scenes/Grenade.tscn") 
 var can_throw = true
@@ -219,6 +220,15 @@ func _weaponbob(time) -> Vector2:
 	pos.x = cos(time * BOB_FREQ / 2) * WEAPON_AMP
 	return pos
 
+func pickup_kid():
+	is_carrying = true
+	niño.visible = true
+	print("llevo al crio")
+	
+func deliver_kid():
+	is_carrying = false
+	niño.visible = false
+	print("llevo al crio")
 func grenade_throw():
 	if Input.is_action_just_pressed("Granada") and can_throw and granades > 0:
 		var grenadeins = grenade.instantiate()
