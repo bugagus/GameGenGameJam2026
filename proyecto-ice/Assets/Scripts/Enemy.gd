@@ -44,6 +44,7 @@ func perform_attack():
 	velocity = Vector3.ZERO
 	animated_sprite_3d.play("attack")
 	await animated_sprite_3d.animation_finished
+	animated_sprite_3d.play("idle")
 	var dist = global_position.distance_to(player.global_position)	
 	if dist < attack_range and can_attack:
 		player.take_damage(attack_damage)
@@ -58,6 +59,7 @@ func die():
 	TimeManager.add_time(time_value)
 	$AudioStreamPlayer3D.stop()
 	animated_sprite_3d.play("death")
+	navigation_agent.set_move_speed(0)
 	$CollisionShape3D.set_deferred("disabled", true)
 	await animated_sprite_3d.animation_finished
 	queue_free()
@@ -67,3 +69,18 @@ func take_damage(damage_taken) -> void:
 	print(current_health)
 	if current_health <= 0:
 		die()
+	else:
+		animated_sprite_3d.play("damage")
+		await animated_sprite_3d.animation_finished
+		animated_sprite_3d.play("idle")
+		
+func death_by_granade() -> void:
+	dead = true
+	ScoreManager.add_score(score_value)
+	TimeManager.add_time(time_value)
+	$AudioStreamPlayer3D.stop()
+	navigation_agent.set_move_speed(0)
+	animated_sprite_3d.play("death_granade")
+	$CollisionShape3D.set_deferred("disabled", true)
+	await animated_sprite_3d.animation_finished
+	queue_free()
