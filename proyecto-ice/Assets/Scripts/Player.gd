@@ -13,10 +13,13 @@ var default_hand_pos = Vector2.ZERO
 
 @onready var cara: AnimatedSprite2D = $"../Hud/Cara"
 @onready var camera_3d: Camera3D = $Head/Camera3D
+@onready var camera_animation_player: AnimationPlayer = $Head/Camera3D/AnimationPlayer
 @onready var weapon_holder: Control = $"../Hud/Pistol"
-@onready var health: Label = $"../Hud/Health"
+@onready var health: Label = $"../Hud/Vida/Health"
 @onready var niño: AnimatedSprite2D = $"../Hud/Niño/Niño"
 @onready var pistol: Control = $"../Hud/Pistol"
+@onready var crosshair_ui: Control = $"../Hud/Crosshair"
+@onready var flecha_guia = $Head/Camera3D/Arrow
 
 var is_carrying: bool = false
 var max_health : int = 100
@@ -24,11 +27,12 @@ var current_health : int = 100
 var granades: int = 3
 var vibration_force: float = 0
 
-@onready var ray_cast_3d: RayCast3D = $RayCast3D
+@onready var ray_cast_3d: RayCast3D = $Head/Camera3D/RayCast3D
 @onready var head: Node3D = $Head
 @onready var Anima: AnimatedSprite2D = pistol.get_node("AnimatedSprite2D")
 @onready var movement_input_component : MovementInputComponent = MovementInputComponent.new()
 @export var movement_component : MovementComponent = null
+@onready var zona_entrega: Area3D = $"../DeliverZone"
 var dead = false
 
 @export var coyote_frames := 6
@@ -60,13 +64,18 @@ var can_shoot : bool = true
 var grenade = preload("res://Scenes/Grenade.tscn") 
 var can_throw = true
 
+@onready var granada1: Sprite2D = $"../Hud/Granadas/Granada1"
+@onready var granada2: Sprite2D = $"../Hud/Granadas/Granada2"
+@onready var granada3: Sprite2D = $"../Hud/Granadas/Granada3"
+
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	health.text = str(current_health)
+	health.text = "%03d/%d" % [current_health, max_health]
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
 	$JumpBufferTimer.wait_time = jump_buffer_frames  / 60.0
 	default_weapon_pos = pistol.position
 	default_hand_pos = niño.position
+	update_granades()
 
 func _process(delta):
 	if vibration_force > 0.01:
@@ -160,26 +169,52 @@ func die() -> void:
 	dead = false
 
 func take_damage(damage_taken) -> void:
-	add_health(-damage_taken)
+	_vibrate()
+	current_health -= damage_taken
 	if current_health <= 0:
 		die()
-	elif current_health  <  25:
-		cara.animation = "25"
-	elif current_health  <  50:
-		cara.animation = "50"
-	elif current_health  <  75:
-		cara.animation = "75"
+		current_health = 0
+	elif current_health < 25:
+		if cara.animation != "25":
+			camera_animation_player.play("Pain")
+			cara.animation = "25"
+	elif current_health < 50:
+		if cara.animation != "50":
+			cara.animation = "50"
+	elif current_health < 75:
+		if cara.animation != "75":
+			cara.animation = "75"
+	else:
+		cara.animation = "100"
+	health.text = "%03d/%d" % [current_health, max_health]
 
 func add_health(added_health) -> void:
 	if current_health + added_health < max_health:
 		current_health += added_health
+		if current_health > 25:
+			if cara.animation != "50":
+				cara.animation  = "50"
+		elif current_health > 50:
+			if cara.animation != "75":
+				cara.animation = "75"
+		elif current_health > 75:
+			if cara.animation != "100":
+				cara.animation = "100"
 	else:
 		current_health = max_health
-	health.text = str(current_health)
+		cara.animation = "100"
+	health.text = "%03d/%d" % [current_health, max_health]
+	camera_animation_player.play("RESET")
 	
 		
 func shoot():
 	if can_shoot:
+		var crosshair_center = crosshair_ui.global_position + (crosshair_ui.size / 2.0)
+		var ray_origin = camera_3d.project_ray_origin(crosshair_center)
+		var ray_direction = camera_3d.project_ray_normal(crosshair_center)
+		var target_global_point = ray_origin + (ray_direction * max_shoot_distance)
+		ray_cast_3d.target_position = ray_cast_3d.to_local(target_global_point)
+		ray_cast_3d.force_raycast_update()
 		Anima.animation = "Shoot"
 		can_shoot = false
 		Anima.frame = 0 
@@ -191,11 +226,8 @@ func shoot():
 			if ray_cast_3d.get_collider().has_method("take_damage"):
 				var distance = ray_cast_3d.global_position.distance_to(ray_cast_3d.get_collider().global_position)
 				var damage_multiplier = 1.0 - (distance/max_shoot_distance)
-				var damage = max_damage * damage_multiplier
+				var damage = int(max_damage * damage_multiplier)
 				ray_cast_3d.get_collider().take_damage(damage)
-				print("Disparo a agente guarro")
-			else:
-				print("Disparo a mierdon")
 		
 		$ShootSound.play()
 		await Anima.animation_finished
@@ -232,12 +264,14 @@ func grenade_throw():
 		var up_force = 3.5
 		var direction = -$Head.global_transform.basis.z.normalized()
 		grenadeins.launch(force, up_force, direction)
+		update_granades()
 		
 	elif granades == 0:
 		granades = granades
 
 func pickup_kid():
 	is_carrying = true
+	flecha_guia.set_new_target(zona_entrega)
 	ScoreManager.add_score(points_kid_pick)
 	TimeManager.add_time(time_kid_pick)
 	niño.play("Con")
@@ -245,6 +279,7 @@ func pickup_kid():
 	
 func deliver_kid():
 	is_carrying = false
+	flecha_guia.set_new_target(null)
 	ScoreManager.add_score(points_kid_delivery)
 	TimeManager.add_time(time_kid_delivery)
 	niño.play("Sin")
@@ -256,6 +291,25 @@ func _on_throw_timer_timeout() -> void:
 func add_granade():
 	if granades < 3:
 		granades+=1
+		update_granades()
 		
 func vibrate_camera(force):
 	vibration_force = force
+
+func _vibrate() -> void:
+	var original_pos = health.position
+	var t = create_tween() 
+	
+	t.set_trans(Tween.TRANS_SINE)
+	t.set_ease(Tween.EASE_IN_OUT)
+	
+	for i in range(4):
+		var offset = Vector2(randf_range(-5,5), randf_range(-5,5))
+		t.tween_property(health, "position", original_pos + offset, 0.05)
+	
+	t.tween_property(health, "position", original_pos, 0.05)
+
+func update_granades() -> void:
+	granada1.visible = granades >= 1
+	granada2.visible = granades >= 2
+	granada3.visible = granades >= 3

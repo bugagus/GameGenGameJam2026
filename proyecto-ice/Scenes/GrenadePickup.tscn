@@ -1,15 +1,16 @@
 [gd_scene format=3 uid="uid://cpvwwooncoil3"]
 
 [ext_resource type="Script" uid="uid://coday652fsx1u" path="res://Scenes/GrenadePickup.gd" id="1_ftber"]
-[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="2_10fgu"]
+[ext_resource type="Texture2D" uid="uid://y278v30d0nm" path="res://Assets/Sprites/HUD/Granada/Granada.png" id="2_ftber"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_14k66"]
+radius = 0.3
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sm1ih"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_10fgu")
+"texture": ExtResource("2_ftber")
 }],
 "loop": true,
 "name": &"idle",
@@ -17,12 +18,16 @@ animations = [{
 }]
 
 [node name="Granade" type="Area3D" unique_id=1283249824]
+collision_layer = 2
 script = ExtResource("1_ftber")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=491318971]
 shape = SubResource("SphereShape3D_14k66")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1152549774]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+billboard = 2
+texture_filter = 2
 sprite_frames = SubResource("SpriteFrames_sm1ih")
 animation = &"idle"
 autoplay = "idle"

@@ -1,6 +1,10 @@
-[gd_scene format=3 uid="uid://bv44igfstgjq6"]
+[gd_scene format=3 uid="uid://b7pyn43yxcs60"]
 
-[ext_resource type="Script" uid="uid://b8nyd5xxedfox" path="res://Assets/Scripts/Spawner.gd" id="1_ohbek"]
+[ext_resource type="Script" path="res://Assets/Scripts/Spawner.gd" id="1_ohbek"]
+[ext_resource type="PackedScene" uid="uid://bctgb8iyyvkfs" path="res://Scenes/Enemy.tscn" id="2_si0ot"]
+[ext_resource type="PackedScene" uid="uid://buqw7drn2cci2" path="res://Scenes/RangedEnemy.tscn" id="3_5jbfu"]
 
 [node name="EnemySpawner" type="Node3D" unique_id=103749472]
 script = ExtResource("1_ohbek")
+enemy_scenes = Array[PackedScene]([ExtResource("2_si0ot"), ExtResource("3_5jbfu")])
+spawn_interval = 10.0

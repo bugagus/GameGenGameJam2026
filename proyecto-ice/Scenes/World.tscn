@@ -46,8 +46,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.54498696, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -36.21694)
 
 [node name="Enemy2" parent="." unique_id=1673215390 instance=ExtResource("4_p70al")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12)
-attack_range = 20.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.34495914, -27.737621)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=664222826]
 navigation_mesh = SubResource("NavigationMesh_bcbcq")
@@ -63,7 +62,8 @@ size = Vector3(20, 0.5, 100)
 
 [node name="ScoreManager" type="Node" parent="." unique_id=563262757]
 
-[node name="Kid" parent="." unique_id=1419835274 instance=ExtResource("13_op4cu")]
+[node name="Kid" parent="." unique_id=1419835274 node_paths=PackedStringArray("puntos_de_spawn") instance=ExtResource("13_op4cu")]
+puntos_de_spawn = [NodePath("../Spawn")]
 
 [node name="DeliverZone" parent="." unique_id=1303329325 instance=ExtResource("14_kwl8l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0296617, -1.1063447, 0.72449183)
@@ -71,3 +71,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0296617, -1.1063447, 0.7244
 [node name="PauseMenu" parent="." unique_id=2039964311 instance=ExtResource("13_8l3nt")]
 
 [node name="Hud" parent="." unique_id=1766224237 instance=ExtResource("9_uo7di")]
+
+[node name="Spawn" type="Node3D" parent="." unique_id=512757531]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8642573, 0, 0)

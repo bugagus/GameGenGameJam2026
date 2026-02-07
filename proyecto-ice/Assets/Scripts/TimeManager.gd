@@ -19,7 +19,7 @@ func reset():
 func _process(delta):
 	if not running:
 		return
-
+	
 	time_left -= delta
 	time_left = max(time_left, 0.0)
 	emit_signal("time_changed", time_left)

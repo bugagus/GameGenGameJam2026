@@ -2,20 +2,56 @@
 
 [ext_resource type="Script" uid="uid://ftoytja3n0cs" path="res://Assets/Scripts/RangedEnemy.gd" id="1_lm0bq"]
 [ext_resource type="PackedScene" uid="uid://w8tbkc8n2gvs" path="res://Scenes/Bullet.tscn" id="2_c2ypk"]
-[ext_resource type="Texture2D" uid="uid://lg8q3lvcjm8e" path="res://Assets/Sprites/Idle.png" id="2_lm0bq"]
-[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="3_c2ypk"]
+[ext_resource type="PackedScene" uid="uid://d2xqpj5he4w86" path="res://Scenes/Death.tscn" id="3_4uuqj"]
+[ext_resource type="Texture2D" uid="uid://bpix6epdkvl3n" path="res://Assets/Sprites/ICE/Attack/IMG_0498.PNG" id="3_l1g48"]
+[ext_resource type="Texture2D" uid="uid://cex1r3yksk2lg" path="res://Assets/Sprites/ICE/Attack/IMG_0499.PNG" id="4_4uuqj"]
 [ext_resource type="Script" uid="uid://dv2yx8jwn87ut" path="res://Assets/Scripts/NavAgent.gd" id="4_ix8y2"]
+[ext_resource type="PackedScene" uid="uid://cpvwwooncoil3" path="res://Scenes/GrenadePickup.tscn" id="4_sdpia"]
+[ext_resource type="Texture2D" uid="uid://bor62bepmwxa8" path="res://Assets/Sprites/ICE/Damage/IMG_0498.PNG" id="5_h5mrw"]
 [ext_resource type="Script" uid="uid://4dlt0xo4l5iw" path="res://Assets/Scripts/StateMachine/StateMachine.gd" id="5_tyjyq"]
+[ext_resource type="Texture2D" uid="uid://cvpoiqougkbdp" path="res://Assets/Sprites/ICE/Damage/IMG_0500.PNG" id="6_sdpia"]
 [ext_resource type="Script" uid="uid://cyohcugugoivl" path="res://Assets/Scripts/StateMachine/Idle.gd" id="6_uxxin"]
 [ext_resource type="Script" uid="uid://cuqwn87io80nv" path="res://Assets/Scripts/StateMachine/Attacking.gd" id="7_dcsum"]
+[ext_resource type="Texture2D" uid="uid://cnhcfa4hoeby" path="res://Assets/Sprites/ICE/Death/IMG_0493.PNG" id="7_oryku"]
+[ext_resource type="Texture2D" uid="uid://cy80q54q5y6v1" path="res://Assets/Sprites/ICE/Death_granade/IMG_0498.PNG" id="7_r8jj1"]
+[ext_resource type="Texture2D" uid="uid://bjjxuibojfl10" path="res://Assets/Sprites/ICE/Death_granade/IMG_0501.PNG" id="8_autjl"]
+[ext_resource type="Texture2D" uid="uid://b55th0kvj3n5j" path="res://Assets/Sprites/ICE/Death/IMG_0494.PNG" id="8_ur1cu"]
+[ext_resource type="Texture2D" uid="uid://denkfljndq2pb" path="res://Assets/Sprites/ICE/Death_granade/IMG_0502.PNG" id="9_1s2hp"]
+[ext_resource type="Texture2D" uid="uid://bocwxyptybd1q" path="res://Assets/Sprites/ICE/Death/IMG_0495.PNG" id="9_6nvyp"]
+[ext_resource type="Texture2D" uid="uid://cate26v6t67oi" path="res://Assets/Sprites/ICE/Death/IMG_0496.PNG" id="10_m5wit"]
+[ext_resource type="Texture2D" uid="uid://bxmibw1jobhue" path="res://Assets/Sprites/ICE/Death_granade/IMG_0503.PNG" id="10_puo1b"]
+[ext_resource type="Texture2D" uid="uid://bo877bue3mt5m" path="res://Assets/Sprites/ICE/Death/IMG_0497.PNG" id="11_3qjek"]
+[ext_resource type="Texture2D" uid="uid://y7fxldse3mml" path="res://Assets/Sprites/ICE/Death_granade/IMG_0504.PNG" id="11_chtdv"]
+[ext_resource type="Texture2D" uid="uid://bcdeufhhdtox0" path="res://Assets/Sprites/ICE/Death_granade/IMG_0505.PNG" id="12_t2pri"]
+[ext_resource type="Texture2D" uid="uid://ces781a2g2ray" path="res://Assets/Sprites/ICE/Death_granade/IMG_0506.PNG" id="13_x7tw4"]
+[ext_resource type="Texture2D" uid="uid://c5sknll86neai" path="res://Assets/Sprites/ICE/Walk/IMG_0489.PNG" id="19_w0tpi"]
+[ext_resource type="Texture2D" uid="uid://duhp6l0odpaoq" path="res://Assets/Sprites/ICE/Walk/IMG_0490.PNG" id="20_ae4if"]
+[ext_resource type="Texture2D" uid="uid://c5jl7fdpu8o0o" path="res://Assets/Sprites/ICE/Idle/spritesheet idle hice.png" id="20_h5mrw"]
+[ext_resource type="Texture2D" uid="uid://dh86wpt1uy4hc" path="res://Assets/Sprites/ICE/Walk/IMG_0491.PNG" id="21_tg67y"]
+[ext_resource type="Texture2D" uid="uid://0wwoyt1axoxb" path="res://Assets/Sprites/ICE/Walk/IMG_0492.PNG" id="22_r3mvx"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tt7e2"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oihve"]
+height = 1.6
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_s7bn3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_sdpia"]
+atlas = ExtResource("20_h5mrw")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oryku"]
+atlas = ExtResource("20_h5mrw")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l2ia4"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_lm0bq")
+"texture": ExtResource("3_l1g48")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4uuqj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_l1g48")
 }],
 "loop": false,
 "name": &"attack",
@@ -23,7 +59,30 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_c2ypk")
+"texture": ExtResource("5_h5mrw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_sdpia")
+}],
+"loop": false,
+"name": &"damage",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_oryku")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ur1cu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6nvyp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_m5wit")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_3qjek")
 }],
 "loop": false,
 "name": &"death",
@@ -31,53 +90,100 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_c2ypk")
+"texture": ExtResource("7_r8jj1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_autjl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_1s2hp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_puo1b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_chtdv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_t2pri")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_x7tw4")
+}],
+"loop": false,
+"name": &"death_granade",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sdpia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oryku")
 }],
 "loop": true,
 "name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_w0tpi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_ae4if")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_tg67y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_r3mvx")
+}],
+"loop": true,
+"name": &"walk",
 "speed": 5.0
 }]
 
-[node name="Enemy" type="CharacterBody3D" unique_id=283281086 node_paths=PackedStringArray("navigation_agent") groups=["Enemy"]]
+[node name="RangedEnemy" type="CharacterBody3D" unique_id=283281086 node_paths=PackedStringArray("navigation_agent") groups=["Enemy"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_lm0bq")
 bullet_scene = ExtResource("2_c2ypk")
-attack_range = 2.0
+death_effect_scene = ExtResource("3_4uuqj")
+grenade_pickup_scene = ExtResource("4_sdpia")
 navigation_agent = NodePath("NavigationAgent3D")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=904254751]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_tt7e2")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=983242912]
+shape = SubResource("CapsuleShape3D_oihve")
 
-[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1626554141]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 0.99999994, 0, 0, 0)
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=764082282]
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 0, 0)
 billboard = 2
-sprite_frames = SubResource("SpriteFrames_s7bn3")
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_l2ia4")
 animation = &"attack"
 autoplay = "idle"
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1899171225]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=2007356374]
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1380395482]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=132085247]
 avoidance_enabled = true
 script = ExtResource("4_ix8y2")
 
-[node name="StateMachine" type="Node3D" parent="." unique_id=1943952542 node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node3D" parent="." unique_id=1903808450 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("5_tyjyq")
 initial_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://4dlt0xo4l5iw"
 
-[node name="Idle" type="Node3D" parent="StateMachine" unique_id=618403084 node_paths=PackedStringArray("ray_cast_3d")]
+[node name="Idle" type="Node3D" parent="StateMachine" unique_id=1215947609]
 script = ExtResource("6_uxxin")
-ray_cast_3d = NodePath("../../RayCast3D")
 metadata/_custom_type_script = "uid://cyohcugugoivl"
 
-[node name="Attacking" type="Node3D" parent="StateMachine" unique_id=631581475]
+[node name="Attacking" type="Node3D" parent="StateMachine" unique_id=19121984]
 script = ExtResource("7_dcsum")
+pursuit_limit_range = 30.0
 metadata/_custom_type_script = "uid://cuqwn87io80nv"
 
-[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1208036948]
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=979689155]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 target_position = Vector3(0, 0, -100)
 collision_mask = 3

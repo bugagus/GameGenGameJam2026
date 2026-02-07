@@ -1,11 +1,21 @@
 [gd_scene format=3 uid="uid://d2scrblftmjn7"]
 
-[ext_resource type="Script" uid="uid://n0d4l68gtv2j" path="res://Scenes/DeliverZone.gd" id="1_w33yc"]
+[ext_resource type="Script" uid="uid://co4rm5waep1d2" path="res://Scenes/DeliverZone.gd" id="1_w33yc"]
+[ext_resource type="Shader" uid="uid://d3asa105ckka5" path="res://Scenes/DeliverZone.gdshader" id="2_5g0ry"]
+[ext_resource type="Script" uid="uid://dodu8cdg6lktg" path="res://Scenes/DeliveryZone.gd" id="2_pnbqq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x1iqc"]
+render_priority = 0
+shader = ExtResource("2_5g0ry")
+shader_parameter/color = Color(0, 1, 0, 1)
+shader_parameter/cantidad_rayas = 20.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_w33yc"]
+material = SubResource("ShaderMaterial_x1iqc")
 inner_radius = 1.912
 outer_radius = 1.956
 rings = 41
+ring_segments = 10
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_w33yc"]
 radius = 2.0
@@ -15,6 +25,7 @@ script = ExtResource("1_w33yc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=511428037]
 mesh = SubResource("TorusMesh_w33yc")
+script = ExtResource("2_pnbqq")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1839530635]
 shape = SubResource("CylinderShape3D_w33yc")

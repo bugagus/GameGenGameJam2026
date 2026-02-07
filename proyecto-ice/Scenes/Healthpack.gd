@@ -4,7 +4,7 @@ extends Area3D
 var time = 0.0
 func _process(delta: float) -> void:
 	time += delta
-	position.y = sin(time * 2.0) * 0.1
+	position.y = sin(time * 2.0) * 0.05
 func _on_body_entered(body):
 	print("Colisiono")
 	if body.is_in_group("Player"):

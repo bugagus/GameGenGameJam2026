@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://bctgb8iyyvkfs"]
 
 [ext_resource type="Script" uid="uid://dw1g186dj0dx8" path="res://Assets/Scripts/Enemy.gd" id="1_s7bn3"]
-[ext_resource type="Texture2D" uid="uid://bpix6epdkvl3n" path="res://Assets/Sprites/ICE/Attack/IMG_0498.PNG" id="2_hfgpu"]
+[ext_resource type="PackedScene" uid="uid://d2xqpj5he4w86" path="res://Scenes/Death.tscn" id="2_xju7k"]
+[ext_resource type="PackedScene" uid="uid://cpvwwooncoil3" path="res://Scenes/GrenadePickup.tscn" id="3_c8a7u"]
 [ext_resource type="Texture2D" uid="uid://cy80q54q5y6v1" path="res://Assets/Sprites/ICE/Death_granade/IMG_0498.PNG" id="3_esfq3"]
 [ext_resource type="Script" uid="uid://dv2yx8jwn87ut" path="res://Assets/Scripts/NavAgent.gd" id="3_xeo28"]
-[ext_resource type="Texture2D" uid="uid://cex1r3yksk2lg" path="res://Assets/Sprites/ICE/Attack/IMG_0499.PNG" id="3_xju7k"]
+[ext_resource type="Texture2D" uid="uid://x2llupnfwkt" path="res://Assets/Sprites/ICE/Attack/Melee/spritesheet hice melee.png" id="3_xju7k"]
 [ext_resource type="Texture2D" uid="uid://bor62bepmwxa8" path="res://Assets/Sprites/ICE/Damage/IMG_0498.PNG" id="4_c8a7u"]
 [ext_resource type="Script" uid="uid://4dlt0xo4l5iw" path="res://Assets/Scripts/StateMachine/StateMachine.gd" id="4_mo1ky"]
 [ext_resource type="Texture2D" uid="uid://bjjxuibojfl10" path="res://Assets/Sprites/ICE/Death_granade/IMG_0501.PNG" id="4_qlal6"]
@@ -23,20 +24,44 @@
 [ext_resource type="Texture2D" uid="uid://bo877bue3mt5m" path="res://Assets/Sprites/ICE/Death/IMG_0497.PNG" id="10_q1bo7"]
 [ext_resource type="Texture2D" uid="uid://c5sknll86neai" path="res://Assets/Sprites/ICE/Walk/IMG_0489.PNG" id="18_hp3pd"]
 [ext_resource type="Texture2D" uid="uid://duhp6l0odpaoq" path="res://Assets/Sprites/ICE/Walk/IMG_0490.PNG" id="19_04nij"]
+[ext_resource type="Texture2D" uid="uid://c5jl7fdpu8o0o" path="res://Assets/Sprites/ICE/Idle/spritesheet idle hice.png" id="19_c8a7u"]
 [ext_resource type="Texture2D" uid="uid://dh86wpt1uy4hc" path="res://Assets/Sprites/ICE/Walk/IMG_0491.PNG" id="20_dkrmf"]
 [ext_resource type="Texture2D" uid="uid://0wwoyt1axoxb" path="res://Assets/Sprites/ICE/Walk/IMG_0492.PNG" id="21_ntwgn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tt7e2"]
 height = 1.6
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8a7u"]
+atlas = ExtResource("3_xju7k")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bly65"]
+atlas = ExtResource("3_xju7k")
+region = Rect2(100, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjbcs"]
+atlas = ExtResource("3_xju7k")
+region = Rect2(200, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tivof"]
+atlas = ExtResource("19_c8a7u")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysecm"]
+atlas = ExtResource("19_c8a7u")
+region = Rect2(100, 0, 100, 100)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_s7bn3"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_hfgpu")
+"texture": SubResource("AtlasTexture_c8a7u")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_xju7k")
+"texture": SubResource("AtlasTexture_bly65")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjbcs")
 }],
 "loop": false,
 "name": &"attack",
@@ -101,6 +126,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_tivof")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysecm")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("18_hp3pd")
 }, {
 "duration": 1.0,
@@ -113,7 +149,7 @@ animations = [{
 "texture": ExtResource("21_ntwgn")
 }],
 "loop": true,
-"name": &"idle",
+"name": &"walk",
 "speed": 5.0
 }]
 
@@ -121,6 +157,8 @@ animations = [{
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_s7bn3")
+death_effect_scene = ExtResource("2_xju7k")
+grenade_pickup_scene = ExtResource("3_c8a7u")
 navigation_agent = NodePath("NavigationAgent3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=904254751]
@@ -131,7 +169,7 @@ transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 0, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_s7bn3")
-animation = &"attack"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1899171225]
@@ -145,9 +183,8 @@ script = ExtResource("4_mo1ky")
 initial_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://4dlt0xo4l5iw"
 
-[node name="Idle" type="Node3D" parent="StateMachine" unique_id=618403084 node_paths=PackedStringArray("ray_cast_3d")]
+[node name="Idle" type="Node3D" parent="StateMachine" unique_id=618403084]
 script = ExtResource("5_6bs3c")
-ray_cast_3d = NodePath("../../RayCast3D")
 metadata/_custom_type_script = "uid://cyohcugugoivl"
 
 [node name="Attacking" type="Node3D" parent="StateMachine" unique_id=631581475]

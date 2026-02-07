@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://d2xqpj5he4w86"]
+
+[ext_resource type="Script" uid="uid://bsn4uwmv5jmax" path="res://Scenes/Death_melee.gd" id="1_6nwb2"]
+[ext_resource type="Texture2D" uid="uid://cnhcfa4hoeby" path="res://Assets/Sprites/ICE/Death/IMG_0493.PNG" id="1_prkst"]
+[ext_resource type="Texture2D" uid="uid://b55th0kvj3n5j" path="res://Assets/Sprites/ICE/Death/IMG_0494.PNG" id="2_6nwb2"]
+[ext_resource type="Texture2D" uid="uid://bocwxyptybd1q" path="res://Assets/Sprites/ICE/Death/IMG_0495.PNG" id="3_pl6eg"]
+[ext_resource type="Texture2D" uid="uid://cate26v6t67oi" path="res://Assets/Sprites/ICE/Death/IMG_0496.PNG" id="4_7qohy"]
+[ext_resource type="Texture2D" uid="uid://bo877bue3mt5m" path="res://Assets/Sprites/ICE/Death/IMG_0497.PNG" id="5_8tvvv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8u8gh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_prkst")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_6nwb2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pl6eg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_7qohy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_8tvvv")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Death" type="Node3D" unique_id=822536296]
+script = ExtResource("1_6nwb2")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1709405400]
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 0, 0)
+billboard = 2
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_8u8gh")
+autoplay = "default"

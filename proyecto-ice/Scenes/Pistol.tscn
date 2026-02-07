@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://c4dnggjqsimfw"]
+[gd_scene format=3 uid="uid://cmlure4k6db34"]
 
-[ext_resource type="Texture2D" uid="uid://7aarj4iucomm" path="res://Assets/Sprites/Manis/Arma/spritesheet mano manis disparando.png" id="2_ebdfm"]
+[ext_resource type="Texture2D" uid="uid://diig1yvhfr1h6" path="res://Assets/Sprites/Manis/Arma/spritesheet mano manis disparando.png" id="2_ebdfm"]
 [ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="6_b14gw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gf3gw"]

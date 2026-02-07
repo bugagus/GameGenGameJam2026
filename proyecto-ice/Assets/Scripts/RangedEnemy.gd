@@ -1,9 +1,15 @@
 class_name RangedEnemy
 extends CharacterBody3D
-signal died
 
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
 @export var bullet_scene : PackedScene
+@export var death_effect_scene: PackedScene 
+@export var grenade_pickup_scene: PackedScene
+
+
+
+enum EnemyState { IDLE, MOVING, ATTACKING, HURT, DYING }
+var state: EnemyState = EnemyState.IDLE
 
 var max_health : int = 50
 var current_health : int = 50
@@ -33,6 +39,18 @@ func _physics_process(delta):
 		
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+	update_movement_animation()
+
+func update_movement_animation():
+	if not can_attack or animated_sprite_3d.animation == "damage":
+		return
+	var horizontal_velocity = Vector2(velocity.x, velocity.z)
+	if horizontal_velocity.length() > 0.1:
+		if animated_sprite_3d.animation != "walk":
+			animated_sprite_3d.play("walk")
+	else:
+		if animated_sprite_3d.animation != "idle":
+			animated_sprite_3d.play("idle")
 
 func attempt_to_kill_player():
 	var dist = global_position.distance_to(player.global_position)
@@ -58,28 +76,52 @@ func spawn_bullet():
 	bullet.look_at(player.global_position)
 
 func die():
+	if dead: 
+		return
 	dead = true
-	ScoreManager.add_score(score_value)
-	$AudioStreamPlayer3D.stop()
-	animated_sprite_3d.play("death")
+	if death_effect_scene:
+		var effect = death_effect_scene.instantiate()
+		effect.global_transform = global_transform
+		get_tree().current_scene.add_child(effect)
 	$CollisionShape3D.set_deferred("disabled", true)
-	emit_signal("died", self)
-	await animated_sprite_3d.animation_finished
-	queue_free()
-
-func death_by_granade() -> void:
-	dead = true
 	ScoreManager.add_score(score_value)
 	TimeManager.add_time(time_value)
 	$AudioStreamPlayer3D.stop()
 	navigation_agent.set_move_speed(0)
-	animated_sprite_3d.play("death_granade")
-	$CollisionShape3D.set_deferred("disabled", true)
-	emit_signal("died", self)
-	await animated_sprite_3d.animation_finished
+	velocity = Vector3.ZERO
+	granade_drop()
+	animated_sprite_3d.play("death")
 	queue_free()
 
 func take_damage(damage_taken) -> void:
+	if dead:
+		return
 	current_health = current_health - damage_taken
-	if current_health <= 0:
+	if current_health <= 0 and !dead:
 		die()
+	else:
+		if !dead:
+			animated_sprite_3d.play("damage")
+			await animated_sprite_3d.animation_finished
+			animated_sprite_3d.play("idle")
+		
+func death_by_granade() -> void:
+	if dead: 
+		return
+	dead = true
+	$CollisionShape3D.set_deferred("disabled", true)
+	ScoreManager.add_score(score_value)
+	TimeManager.add_time(time_value)
+	$AudioStreamPlayer3D.stop()
+	navigation_agent.set_move_speed(0)
+	velocity = Vector3.ZERO
+	animated_sprite_3d.play("death_granade")
+	granade_drop()
+	await animated_sprite_3d.animation_finished
+	queue_free()
+
+func granade_drop():
+	if randi() % 5 == 0:
+		var granadiña = grenade_pickup_scene.instantiate()
+		granadiña.global_position = global_position + Vector3(0, 0.5, 0)
+		get_tree().current_scene.add_child(granadiña)

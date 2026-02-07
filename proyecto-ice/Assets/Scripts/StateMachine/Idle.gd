@@ -8,11 +8,10 @@ class_name Idle
 var wander_time : float = 0.0
 @onready var enemy : CharacterBody3D = get_parent().get_parent()
 @onready var player : CharacterBody3D = get_tree().get_first_node_in_group("Player")
-@export var ray_cast_3d: RayCast3D
+@onready var ray_cast_3d: RayCast3D = $"../../RayCast3D"
 
 
 func enter():
-	enemy.animated_sprite_3d.play("idle")
 	randomize_wander()
 	
 func update(delta: float):

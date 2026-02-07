@@ -1,30 +1,67 @@
 [gd_scene format=3 uid="uid://chguhk5g14crr"]
 
 [ext_resource type="Script" uid="uid://cyd1rorcmy4la" path="res://Assets/Scripts/label.gd" id="1_3jfbl"]
+[ext_resource type="Script" uid="uid://bkelminogfgum" path="res://Assets/Scripts/HUD.gd" id="1_xy7gf"]
 [ext_resource type="Texture2D" uid="uid://w31elcyd8qt1" path="res://Assets/Sprites/Manis/Derecha/Ilustración_sin_título.png" id="2_3j5vs"]
+[ext_resource type="Texture2D" uid="uid://dpnawetdwkper" path="res://Assets/Sprites/Manis/Cara/IMG_0507.PNG" id="3_mo077"]
 [ext_resource type="Texture2D" uid="uid://csjw28ain6ycf" path="res://Assets/Sprites/Manis/Izquierda/Ilustración_sin_título.png" id="3_rhayu"]
+[ext_resource type="Texture2D" uid="uid://bijs3qg15c0qm" path="res://Assets/Sprites/Manis/Cara/IMG_0508.PNG" id="4_0c5mj"]
 [ext_resource type="Script" uid="uid://dlydi4uamhxay" path="res://Assets/Scripts/TimeManager.gd" id="4_gyfy3"]
 [ext_resource type="Texture2D" uid="uid://tuo8nofyk2mk" path="res://Assets/Sprites/HUD/Hud3.png" id="5_3j5vs"]
+[ext_resource type="Texture2D" uid="uid://cvr8dsffus5kc" path="res://Assets/Sprites/Manis/Cara/IMG_0510.PNG" id="6_0c5mj"]
 [ext_resource type="Texture2D" uid="uid://ck1pfjnjraj52" path="res://Assets/Sprites/Manis/Arma/mirilla.png" id="6_gyfy3"]
+[ext_resource type="Texture2D" uid="uid://dvxue2livlg1i" path="res://Assets/Sprites/Manis/Cara/IMG_0509.PNG" id="6_mo077"]
 [ext_resource type="Texture2D" uid="uid://diig1yvhfr1h6" path="res://Assets/Sprites/Manis/Arma/spritesheet mano manis disparando.png" id="7_xy7gf"]
+[ext_resource type="FontFile" uid="uid://cnc1a6n8rv7qf" path="res://Assets/Fonts/HomeVideo-BLG6G.ttf" id="12_py745"]
+[ext_resource type="Texture2D" uid="uid://ddkd0fbsshyb0" path="res://Assets/Sprites/HUD/Bandas/BandaNegraLarga.png" id="13_ald3p"]
+[ext_resource type="Texture2D" uid="uid://b0s6scvhr04wg" path="res://Assets/Sprites/HUD/Bandas/BandaNegraLargaAlreves.png" id="14_py745"]
+[ext_resource type="Texture2D" uid="uid://y278v30d0nm" path="res://Assets/Sprites/HUD/Granada/Granada.png" id="16_cx0hk"]
+[ext_resource type="Texture2D" uid="uid://dlw7a1e1s0an3" path="res://Assets/Sprites/HUD/Altavoces/Casette.png" id="17_uyl23"]
+[ext_resource type="Texture2D" uid="uid://d1psd1hsa62jc" path="res://Assets/Sprites/HUD/Altavoces/Radio1.png" id="18_fth7q"]
+[ext_resource type="Script" uid="uid://dyihvikq1p7ai" path="res://Scenes/Radio.gd" id="19_fth7q"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xy7gf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_3j5vs")
+"texture": ExtResource("3_mo077")
 }],
 "loop": true,
-"name": &"Con",
-"speed": 5.0
+"name": &"100",
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_rhayu")
+"texture": ExtResource("6_mo077")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0c5mj")
 }],
 "loop": true,
-"name": &"Sin",
-"speed": 5.0
+"name": &"25",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_0c5mj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_mo077")
+}],
+"loop": true,
+"name": &"50",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_mo077")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0c5mj")
+}],
+"loop": true,
+"name": &"75",
+"speed": 2.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_mo077"]
@@ -80,36 +117,50 @@ animations = [{
 "speed": 13.0
 }]
 
-[node name="Hud" type="CanvasLayer" unique_id=1766224237]
+[sub_resource type="SpriteFrames" id="SpriteFrames_0c5mj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3j5vs")
+}],
+"loop": true,
+"name": &"Con",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rhayu")
+}],
+"loop": true,
+"name": &"Sin",
+"speed": 5.0
+}]
 
-[node name="ScoreLabel" type="Label" parent="." unique_id=1210498211]
-offset_right = 40.0
-offset_bottom = 23.0
-script = ExtResource("1_3jfbl")
+[sub_resource type="LabelSettings" id="LabelSettings_uyl23"]
+font = ExtResource("12_py745")
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_cx0hk"]
+font = ExtResource("12_py745")
+font_size = 46
+
+[sub_resource type="LabelSettings" id="LabelSettings_u0pm8"]
+font = ExtResource("12_py745")
+font_size = 46
+
+[node name="Hud" type="CanvasLayer" unique_id=1766224237]
+script = ExtResource("1_xy7gf")
 
 [node name="Cara" type="AnimatedSprite2D" parent="." unique_id=1309205771]
-position = Vector2(1109, 598)
+z_index = 1
+texture_filter = 3
+position = Vector2(535, 659)
+scale = Vector2(2.2, 2.2)
 sprite_frames = SubResource("SpriteFrames_xy7gf")
-animation = &"Sin"
+animation = &"75"
+autoplay = "100"
 
-[node name="Health" type="Label" parent="." unique_id=2137937519]
-offset_top = 625.0
-offset_right = 40.0
-offset_bottom = 648.0
-
-[node name="TimeLabel" type="Label" parent="." unique_id=430544472]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -23.0
-grow_horizontal = 0
-grow_vertical = 0
-script = ExtResource("4_gyfy3")
-
-[node name="Control" type="Control" parent="." unique_id=199030823]
+[node name="Interfaz" type="Control" parent="." unique_id=199030823]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -119,7 +170,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Control" unique_id=8303417]
+[node name="Sprite2D" type="Sprite2D" parent="Interfaz" unique_id=8303417]
 texture_filter = 1
 position = Vector2(0, -368)
 scale = Vector2(2.2, 2.2)
@@ -133,6 +184,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_top = -45.0
+offset_bottom = -45.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -159,7 +212,8 @@ texture_filter = 3
 position = Vector2(-305, -254)
 scale = Vector2(2.2, 2.2)
 sprite_frames = SubResource("SpriteFrames_vvfq2")
-animation = &"Shoot"
+animation = &"Idle"
+autoplay = "Idle"
 
 [node name="Niño" type="Control" parent="." unique_id=1243232636]
 layout_mode = 3
@@ -176,6 +230,128 @@ texture_filter = 1
 texture_repeat = 1
 position = Vector2(303.99997, -215)
 scale = Vector2(2.2, 2.2)
-sprite_frames = SubResource("SpriteFrames_xy7gf")
-animation = &"Con"
-autoplay = "Sin"
+sprite_frames = SubResource("SpriteFrames_0c5mj")
+animation = &"Sin"
+
+[node name="Vida" type="Control" parent="." unique_id=393227953]
+layout_mode = 3
+anchor_left = 0.022222223
+anchor_top = 0.85555553
+anchor_right = 0.05925926
+anchor_bottom = 0.9111111
+offset_left = 136.0
+offset_right = 136.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Health" type="Label" parent="Vida" unique_id=2137937519]
+z_index = 1
+layout_mode = 0
+offset_left = 34.0
+offset_top = -20.0
+offset_right = 210.0
+offset_bottom = 19.0
+text = "100/100"
+label_settings = SubResource("LabelSettings_uyl23")
+
+[node name="BandaNegraLarga" type="Sprite2D" parent="Vida" unique_id=1519267175]
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("13_ald3p")
+
+[node name="Tiempo" type="Control" parent="." unique_id=1556205903]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1080.0
+offset_top = 96.0
+offset_right = 1120.0
+offset_bottom = 136.0
+
+[node name="TimeLabel" type="Label" parent="Tiempo" unique_id=430544472]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -250.0
+offset_top = -23.0
+offset_right = -48.0
+offset_bottom = 19.0
+grow_horizontal = 0
+text = "00:26"
+label_settings = SubResource("LabelSettings_cx0hk")
+vertical_alignment = 1
+script = ExtResource("4_gyfy3")
+
+[node name="BandaNegraLargaAlreves" type="Sprite2D" parent="Tiempo" unique_id=244052000]
+show_behind_parent = true
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("14_py745")
+
+[node name="Puntos" type="Control" parent="." unique_id=738369519]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 96.0
+offset_right = 40.0
+offset_bottom = 136.0
+
+[node name="ScoreLabel" type="Label" parent="Puntos" unique_id=1210498211]
+z_index = 1
+layout_mode = 0
+offset_left = 33.0
+offset_top = -22.0
+offset_right = 159.0
+offset_bottom = 20.0
+text = "00"
+label_settings = SubResource("LabelSettings_u0pm8")
+script = ExtResource("1_3jfbl")
+
+[node name="BandaNegraLarga3" type="Sprite2D" parent="Puntos" unique_id=1295529367]
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("13_ald3p")
+
+[node name="Granadas" type="Control" parent="." unique_id=1268954989]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -42.000015
+offset_top = 679.0
+offset_right = -2.0000153
+offset_bottom = 719.0
+
+[node name="BandaNegraLarga2" type="Sprite2D" parent="Granadas" unique_id=1481266812]
+position = Vector2(14.000015, 1)
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("13_ald3p")
+
+[node name="Granada1" type="Sprite2D" parent="Granadas" unique_id=2055983416]
+position = Vector2(255.00002, 1)
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("16_cx0hk")
+
+[node name="Granada2" type="Sprite2D" parent="Granadas" unique_id=1383922268]
+position = Vector2(188.00002, 1)
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("16_cx0hk")
+
+[node name="Granada3" type="Sprite2D" parent="Granadas" unique_id=387594866]
+position = Vector2(122.000015, 1)
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("16_cx0hk")
+
+[node name="Control" type="Control" parent="." unique_id=1434928369]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Casette" type="Sprite2D" parent="." unique_id=397089582]
+position = Vector2(842, 648)
+texture = ExtResource("17_uyl23")
+
+[node name="Radio1" type="Sprite2D" parent="." unique_id=1775811063]
+position = Vector2(842, 648)
+texture = ExtResource("18_fth7q")
+script = ExtResource("19_fth7q")

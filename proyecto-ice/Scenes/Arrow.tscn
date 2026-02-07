@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://csmx8lw0gne0p"]
+
+[ext_resource type="PackedScene" uid="uid://be18b5god6f8o" path="res://Assets/Sprites/Models/carArrow.glb" id="1_5mg4u"]
+[ext_resource type="Script" uid="uid://7uwprukl6s6d" path="res://Scenes/Arrow.gd" id="1_7v023"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7v023"]
+render_priority = 100
+no_depth_test = true
+shading_mode = 2
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="Arrow" type="Node3D" unique_id=87584350]
+script = ExtResource("1_7v023")
+
+[node name="carArrow" parent="." unique_id=1920338385 instance=ExtResource("1_5mg4u")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="Cube" parent="carArrow" index="0" unique_id=1594439032]
+surface_material_override/0 = SubResource("StandardMaterial3D_7v023")
+
+[editable path="carArrow"]

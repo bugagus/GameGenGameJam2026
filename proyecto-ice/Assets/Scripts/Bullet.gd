@@ -13,9 +13,7 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_body_entered(body):
-	print("Colisiono")
 	if body.is_in_group("Player"):
-		print("Colisiono con player")
 		body.take_damage(bullet_damage)
 		queue_free()
 	elif not body.is_in_group("Enemy"): 
