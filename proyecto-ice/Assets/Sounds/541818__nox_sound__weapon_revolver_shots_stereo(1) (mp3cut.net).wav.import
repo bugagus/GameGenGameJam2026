@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bhhwm3vfno1yv"
+path="res://.godot/imported/541818__nox_sound__weapon_revolver_shots_stereo(1) (mp3cut.net).wav-f5dffbbddee96eeb03bf7f432cd5723a.sample"
+
+[deps]
+
+source_file="res://Assets/Sounds/541818__nox_sound__weapon_revolver_shots_stereo(1) (mp3cut.net).wav"
+dest_files=["res://.godot/imported/541818__nox_sound__weapon_revolver_shots_stereo(1) (mp3cut.net).wav-f5dffbbddee96eeb03bf7f432cd5723a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

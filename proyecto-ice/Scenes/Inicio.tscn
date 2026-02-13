@@ -1,0 +1,267 @@
+[gd_scene format=3 uid="uid://44av5hvkf0rq"]
+
+[ext_resource type="FontFile" uid="uid://cnc1a6n8rv7qf" path="res://Assets/Fonts/HomeVideo-BLG6G.ttf" id="1_di7c8"]
+[ext_resource type="Script" uid="uid://ds8sahudh3lto" path="res://Scenes/MainMenu.gd" id="1_qojow"]
+[ext_resource type="PackedScene" uid="uid://dxdpnfpvmyhwc" path="res://Scenes/World.tscn" id="2_www3o"]
+[ext_resource type="Texture2D" uid="uid://duq6bjcjldnl5" path="res://Assets/Sprites/IMG_0530 (1).PNG" id="3_gcc81"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qojow"]
+font = ExtResource("1_di7c8")
+font_size = 40
+
+[sub_resource type="VideoStreamTheora" id="VideoStreamTheora_qojow"]
+
+[sub_resource type="Animation" id="Animation_di7c8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:label_settings:font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect2:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gcc81"]
+resource_name = "fade_in"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_tlkop"]
+resource_name = "fade_out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0009999999, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qojow"]
+resource_name = "label"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:label_settings:font_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.9333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_www3o"]
+resource_name = "new_animation"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_www3o"]
+_data = {
+&"RESET": SubResource("Animation_di7c8"),
+&"fade_in": SubResource("Animation_gcc81"),
+&"fade_out": SubResource("Animation_tlkop"),
+&"label": SubResource("Animation_qojow"),
+&"new_animation": SubResource("Animation_www3o")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_www3o"]
+font = ExtResource("1_di7c8")
+font_size = 42
+
+[sub_resource type="LabelSettings" id="LabelSettings_gcc81"]
+font = ExtResource("1_di7c8")
+
+[node name="MainMenu" type="Control" unique_id=147740681]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qojow")
+World = ExtResource("2_www3o")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=563451937]
+z_index = 1
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_gcc81")
+expand_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1621383695]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="." unique_id=350751045]
+visible = false
+z_index = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -263.0
+offset_top = 108.0
+offset_right = 265.0
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PRESS ANY KEY TO START"
+label_settings = SubResource("LabelSettings_qojow")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=153023587]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = SubResource("VideoStreamTheora_qojow")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1580498734]
+libraries/ = SubResource("AnimationLibrary_www3o")
+autoplay = &"label"
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=622850522]
+z_index = 5
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Node" type="Node" parent="." unique_id=1576871349]
+
+[node name="Label" type="Label" parent="Node" unique_id=1341109504]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -441.0
+offset_top = -187.5
+offset_right = 441.0
+offset_bottom = 187.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "          ---CONTROLES--
+
+PULSA CLICK IZQUIERDO PARA DISPARAR
+
+  PULSA G PARA LANZAR UNA GRANADA
+
+      PULSA SHIFT PARA CORRER
+
+     PULSA CTRL PARA DASHEARTE"
+label_settings = SubResource("LabelSettings_www3o")
+
+[node name="Label" type="Label" parent="Node/Label" unique_id=1004870530]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 253.0
+offset_top = 323.0
+offset_right = 1135.0
+offset_bottom = 698.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "esperate ya se pone el juego"
+label_settings = SubResource("LabelSettings_gcc81")
+
+[node name="Node2" type="Node" parent="." unique_id=27604004]
+
+[node name="Label" type="Label" parent="Node2" unique_id=501033881]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -441.0
+offset_top = -229.5
+offset_right = 441.0
+offset_bottom = 229.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "   manis, nuestro enano favorito,
+  esta hasta la polla de que los 
+ nazis del \"hice\" se lleven a sus
+colegones, segun ellos, por labores
+          de reemigración
+
+hoy ha decidido que no aguanta mas
+
+       salva a sus colegones
+
+	            mata al hice"
+label_settings = SubResource("LabelSettings_www3o")
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Node2/Label" unique_id=95045078]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 253.0
+offset_top = 323.0
+offset_right = 1135.0
+offset_bottom = 698.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "esperate ya se pone el juego"
+label_settings = SubResource("LabelSettings_gcc81")
+metadata/_edit_use_anchors_ = true

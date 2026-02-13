@@ -75,7 +75,8 @@ func handle_jump(entity : CharacterBody3D, is_jumping : bool) -> void:
 func start_dash(entity: CharacterBody3D, input: Vector2) -> void:
 	if not can_dash or input == Vector2.ZERO:
 		return
-	
+	if get_tree().get_first_node_in_group("Player").has_node("DashSound"):
+		get_tree().get_first_node_in_group("Player").get_node("DashSound").play()   
 	is_dashing = true
 	can_dash = false
 	dash_time = 0.0

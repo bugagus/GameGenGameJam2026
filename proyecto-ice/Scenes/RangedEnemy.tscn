@@ -6,9 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bpix6epdkvl3n" path="res://Assets/Sprites/ICE/Attack/IMG_0498.PNG" id="3_l1g48"]
 [ext_resource type="Texture2D" uid="uid://cex1r3yksk2lg" path="res://Assets/Sprites/ICE/Attack/IMG_0499.PNG" id="4_4uuqj"]
 [ext_resource type="Script" uid="uid://dv2yx8jwn87ut" path="res://Assets/Scripts/NavAgent.gd" id="4_ix8y2"]
+[ext_resource type="PackedScene" uid="uid://0hhycfjxl57i" path="res://Scenes/Death_granade.tscn" id="4_oryku"]
 [ext_resource type="PackedScene" uid="uid://cpvwwooncoil3" path="res://Scenes/GrenadePickup.tscn" id="4_sdpia"]
-[ext_resource type="Texture2D" uid="uid://bor62bepmwxa8" path="res://Assets/Sprites/ICE/Damage/IMG_0498.PNG" id="5_h5mrw"]
 [ext_resource type="Script" uid="uid://4dlt0xo4l5iw" path="res://Assets/Scripts/StateMachine/StateMachine.gd" id="5_tyjyq"]
+[ext_resource type="PackedScene" uid="uid://ccl6buarlr4yu" path="res://Scenes/Botiquin.tscn" id="6_oryku"]
 [ext_resource type="Texture2D" uid="uid://cvpoiqougkbdp" path="res://Assets/Sprites/ICE/Damage/IMG_0500.PNG" id="6_sdpia"]
 [ext_resource type="Script" uid="uid://cyohcugugoivl" path="res://Assets/Scripts/StateMachine/Idle.gd" id="6_uxxin"]
 [ext_resource type="Script" uid="uid://cuqwn87io80nv" path="res://Assets/Scripts/StateMachine/Attacking.gd" id="7_dcsum"]
@@ -58,9 +59,6 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_h5mrw")
-}, {
 "duration": 1.0,
 "texture": ExtResource("6_sdpia")
 }],
@@ -149,8 +147,12 @@ collision_mask = 3
 script = ExtResource("1_lm0bq")
 bullet_scene = ExtResource("2_c2ypk")
 death_effect_scene = ExtResource("3_4uuqj")
+death_granade_effect_scene = ExtResource("4_oryku")
 grenade_pickup_scene = ExtResource("4_sdpia")
+health_pickup_scene = ExtResource("6_oryku")
+move_speed = 4.0
 navigation_agent = NodePath("NavigationAgent3D")
+time_value = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=983242912]
 shape = SubResource("CapsuleShape3D_oihve")
@@ -160,7 +162,7 @@ transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 0, 0)
 billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_l2ia4")
-animation = &"attack"
+animation = &"damage"
 autoplay = "idle"
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=2007356374]

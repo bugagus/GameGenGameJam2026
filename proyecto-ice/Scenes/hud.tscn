@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://dlw7a1e1s0an3" path="res://Assets/Sprites/HUD/Altavoces/Casette.png" id="17_uyl23"]
 [ext_resource type="Texture2D" uid="uid://d1psd1hsa62jc" path="res://Assets/Sprites/HUD/Altavoces/Radio1.png" id="18_fth7q"]
 [ext_resource type="Script" uid="uid://dyihvikq1p7ai" path="res://Scenes/Radio.gd" id="19_fth7q"]
+[ext_resource type="Texture2D" uid="uid://bjtagvckh3k24" path="res://Assets/Sprites/Niños/Sprite_Cara_Niño.png" id="20_253t2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xy7gf"]
 animations = [{
@@ -257,6 +258,34 @@ label_settings = SubResource("LabelSettings_uyl23")
 scale = Vector2(2.2, 2.2)
 texture = ExtResource("13_ald3p")
 
+[node name="Niños" type="Control" parent="." unique_id=807714587]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1123.0
+offset_top = 186.0
+offset_right = 1163.0
+offset_bottom = 226.0
+
+[node name="NiñosLabel" type="Label" parent="Niños" unique_id=1123139646]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -250.0
+offset_top = -23.0
+offset_right = -48.0
+offset_bottom = 19.0
+grow_horizontal = 0
+text = "0/9"
+label_settings = SubResource("LabelSettings_cx0hk")
+vertical_alignment = 1
+script = ExtResource("4_gyfy3")
+
+[node name="BandaNegraLargaAlreves" type="Sprite2D" parent="Niños" unique_id=229558190]
+show_behind_parent = true
+scale = Vector2(2.2, 2.2)
+texture = ExtResource("14_py745")
+
 [node name="Tiempo" type="Control" parent="." unique_id=1556205903]
 layout_mode = 3
 anchors_preset = 0
@@ -355,3 +384,19 @@ texture = ExtResource("17_uyl23")
 position = Vector2(842, 648)
 texture = ExtResource("18_fth7q")
 script = ExtResource("19_fth7q")
+velocidad = 10.0
+distancia = 4.0
+
+[node name="SpriteCaraNiño" type="Sprite2D" parent="." unique_id=1690351115]
+position = Vector2(1028, 185)
+texture = ExtResource("20_253t2")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1583623779]
+z_index = 5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)

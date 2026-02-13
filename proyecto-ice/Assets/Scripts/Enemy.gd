@@ -1,15 +1,19 @@
 class_name Enemy
 extends CharacterBody3D
 
-
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
 @export var death_effect_scene: PackedScene 
+@export var death_granade_effect_scene: PackedScene 
 @export var grenade_pickup_scene: PackedScene
+@export var health_pickup_scene: PackedScene 
+
+enum EnemyState { IDLE, MOVING, ATTACKING, HURT, DYING }
+var state: EnemyState = EnemyState.IDLE
 
 var max_health : int = 100
 var current_health : int = 100
 
-@export var attack_range = 2.0
+@export var attack_range = 20.0
 @export var attack_cooldown_time = 1.5
 @export var attack_damage = 20
 @export var move_speed = 2.0
@@ -35,7 +39,6 @@ func _physics_process(delta):
 		
 	if not is_on_floor():
 		velocity.y -= gravity * delta
-		
 	update_movement_animation()
 
 func update_movement_animation():
@@ -56,14 +59,13 @@ func attempt_to_kill_player():
 
 func perform_attack():
 	can_attack = false
-	navigation_agent.set_move_speed(0)
 	velocity = Vector3.ZERO
 	animated_sprite_3d.play("attack")
-	player.take_damage(attack_damage)
+	if player.has_method("take_damage"):
+		player.take_damage(attack_damage)
 	await animated_sprite_3d.animation_finished
 	animated_sprite_3d.play("idle")
 	await get_tree().create_timer(attack_cooldown_time).timeout
-	navigation_agent.set_move_speed(move_speed)
 	can_attack = true
 
 func die():
@@ -80,8 +82,9 @@ func die():
 	$AudioStreamPlayer3D.stop()
 	navigation_agent.set_move_speed(0)
 	velocity = Vector3.ZERO
-	animated_sprite_3d.play("death")
 	granade_drop()
+	health_drop()
+	animated_sprite_3d.play("death")
 	queue_free()
 
 func take_damage(damage_taken) -> void:
@@ -100,18 +103,30 @@ func death_by_granade() -> void:
 	if dead: 
 		return
 	dead = true
+	if death_granade_effect_scene:
+		var effect = death_granade_effect_scene.instantiate()
+		effect.global_transform = global_transform
+		get_tree().current_scene.add_child(effect)
 	$CollisionShape3D.set_deferred("disabled", true)
 	ScoreManager.add_score(score_value)
 	TimeManager.add_time(time_value)
 	$AudioStreamPlayer3D.stop()
 	navigation_agent.set_move_speed(0)
 	velocity = Vector3.ZERO
-	animated_sprite_3d.play("death_granade")
 	granade_drop()
-	await animated_sprite_3d.animation_finished
+	health_drop()
 	queue_free()
 
 func granade_drop():
-		var granadiña = grenade_pickup_scene.instantiate()
-		granadiña.global_position = global_position + Vector3(0, -0.4, 0)
-		get_tree().current_scene.add_child(granadiña)
+	if grenade_pickup_scene:
+		if randi() % 5 == 0:
+			var granadina = grenade_pickup_scene.instantiate()
+			granadina.global_position = global_position + Vector3(0, -0.5, 0)
+			get_tree().current_scene.add_child(granadina)
+
+func health_drop():
+	if health_pickup_scene: 
+		if randi() % 5 == 0:
+			var botiquin = health_pickup_scene.instantiate()
+			botiquin.global_position = global_position + Vector3(0, -0.5, 0)
+			get_tree().current_scene.add_child(botiquin)

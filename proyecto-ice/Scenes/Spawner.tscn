@@ -7,4 +7,5 @@
 [node name="EnemySpawner" type="Node3D" unique_id=103749472]
 script = ExtResource("1_ohbek")
 enemy_scenes = Array[PackedScene]([ExtResource("2_si0ot"), ExtResource("3_5jbfu")])
+spawn_radius = 1.0
 spawn_interval = 10.0

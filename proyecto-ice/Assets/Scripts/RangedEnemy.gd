@@ -4,8 +4,9 @@ extends CharacterBody3D
 @onready var animated_sprite_3d: AnimatedSprite3D = $AnimatedSprite3D
 @export var bullet_scene : PackedScene
 @export var death_effect_scene: PackedScene 
+@export var death_granade_effect_scene: PackedScene 
 @export var grenade_pickup_scene: PackedScene
-
+@export var health_pickup_scene: PackedScene
 
 
 enum EnemyState { IDLE, MOVING, ATTACKING, HURT, DYING }
@@ -90,6 +91,7 @@ func die():
 	navigation_agent.set_move_speed(0)
 	velocity = Vector3.ZERO
 	granade_drop()
+	health_drop()
 	animated_sprite_3d.play("death")
 	queue_free()
 
@@ -109,19 +111,30 @@ func death_by_granade() -> void:
 	if dead: 
 		return
 	dead = true
+	if death_granade_effect_scene:
+		var effect = death_granade_effect_scene.instantiate()
+		effect.global_transform = global_transform
+		get_tree().current_scene.add_child(effect)
 	$CollisionShape3D.set_deferred("disabled", true)
 	ScoreManager.add_score(score_value)
 	TimeManager.add_time(time_value)
 	$AudioStreamPlayer3D.stop()
 	navigation_agent.set_move_speed(0)
 	velocity = Vector3.ZERO
-	animated_sprite_3d.play("death_granade")
 	granade_drop()
-	await animated_sprite_3d.animation_finished
+	health_drop()
 	queue_free()
 
 func granade_drop():
-	if randi() % 5 == 0:
-		var granadiña = grenade_pickup_scene.instantiate()
-		granadiña.global_position = global_position + Vector3(0, 0.5, 0)
-		get_tree().current_scene.add_child(granadiña)
+	if grenade_pickup_scene:
+		if randi() % 5 == 0:
+			var granadina = grenade_pickup_scene.instantiate()
+			granadina.global_position = global_position + Vector3(0, -0.5, 0)
+			get_tree().current_scene.add_child(granadina)
+
+func health_drop():
+	if health_pickup_scene: 
+		if randi() % 5 == 0:
+			var botiquin = health_pickup_scene.instantiate()
+			botiquin.global_position = global_position + Vector3(0, -0.5, 0)
+			get_tree().current_scene.add_child(botiquin)

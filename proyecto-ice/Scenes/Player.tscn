@@ -4,7 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://4xrm0s7j43p5" path="res://Assets/Sprites/HUD/Sangre/Blood.png" id="2_dewec"]
 [ext_resource type="PackedScene" uid="uid://csmx8lw0gne0p" path="res://Scenes/Arrow.tscn" id="3_5ixxa"]
 [ext_resource type="PackedScene" uid="uid://bujg4j35m60mw" path="res://Assets/Components/movement_component.tscn" id="3_kne1u"]
-[ext_resource type="AudioStream" uid="uid://c4fdhrjj20xh1" path="res://Assets/Sounds/BANG sound effect Inuyashiki(MP3_160K).mp3" id="4_e80uo"]
+[ext_resource type="AudioStream" uid="uid://bhhwm3vfno1yv" path="res://Assets/Sounds/541818__nox_sound__weapon_revolver_shots_stereo(1) (mp3cut.net).wav" id="5_5ixxa"]
+[ext_resource type="AudioStream" uid="uid://qjmknav45uwa" path="res://Assets/Sounds/Squish Sound Effect(1)_[cut_1sec].wav" id="6_nn08x"]
+[ext_resource type="AudioStream" uid="uid://cdmnmex8xir4c" path="res://Assets/Sounds/arcade-game-bling-epic-stock-media-1-00-00(1).mp3" id="7_52ee3"]
+[ext_resource type="AudioStream" uid="uid://8gokb3mxp1v4" path="res://Assets/Sounds/half-life-health-charger-sound_4mUMhw1N(1).mp3" id="8_bhhdu"]
+[ext_resource type="AudioStream" uid="uid://bfsrpld7udoh7" path="res://Assets/Sounds/714258__qubodup__cloud-poof(1).wav" id="8_megsn"]
+[ext_resource type="AudioStream" uid="uid://24jmg727nbg5" path="res://Assets/Sounds/651515__1bob__grab-item(1).wav" id="8_yoq75"]
+[ext_resource type="AudioStream" uid="uid://bgpdi0is62rd" path="res://Assets/Sounds/Mlg gaming hitmarker greenscreen + sound effect. [o5p80IIyn-I] (mp3cut.net).wav" id="11_ksbbd"]
+[ext_resource type="AudioStream" uid="uid://dueevkx2qbu65" path="res://Assets/Sounds/Music/nickpanek-hard-polka-metal-upbeat-accordion-folk-metal-czech-style-473878(1)(1).mp3" id="12_glx4g"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rxg2q"]
 
@@ -49,8 +56,19 @@ _data = {
 [node name="Player" type="CharacterBody3D" unique_id=1101428949 node_paths=PackedStringArray("movement_component")]
 collision_mask = 2
 script = ExtResource("1_kpjcp")
+mouse_sensitivity = null
 movement_component = NodePath("MovementComponent")
+coyote_frames = null
+points_kid_delivery = null
+points_kid_pick = null
+time_kid_delivery = null
+time_kid_pick = null
 jump_cut_multiplier = 0.6
+jump_buffer_frames = null
+fall_cam_offset = null
+cam_lerp_speed = null
+dash_cam_tilt = null
+hard_landing_threshold = null
 
 [node name="Collision" type="CollisionShape3D" parent="." unique_id=152227142]
 shape = SubResource("CapsuleShape3D_rxg2q")
@@ -79,7 +97,7 @@ target_position = Vector3(0, 0, -100)
 collision_mask = 3
 
 [node name="Arrow" parent="Head/Camera3D" unique_id=87584350 instance=ExtResource("3_5ixxa")]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, -1)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.5, -1)
 
 [node name="GrenadePos" type="Marker3D" parent="Head" unique_id=1296489194]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.67081106)
@@ -87,7 +105,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.67081106)
 [node name="MovementComponent" parent="." unique_id=291293879 instance=ExtResource("3_kne1u")]
 
 [node name="ShootSound" type="AudioStreamPlayer" parent="." unique_id=1610123062]
-stream = ExtResource("4_e80uo")
+stream = ExtResource("5_5ixxa")
 bus = &"Sfx"
 
 [node name="CoyoteTimer" type="Timer" parent="." unique_id=17458339]
@@ -97,5 +115,41 @@ bus = &"Sfx"
 [node name="ThrowTimer" type="Timer" parent="." unique_id=94550665]
 wait_time = 1.5
 one_shot = true
+
+[node name="PickUpKidSound" type="AudioStreamPlayer" parent="." unique_id=375944571]
+stream = ExtResource("6_nn08x")
+volume_db = -6.387
+bus = &"Sfx"
+
+[node name="DeliverSound" type="AudioStreamPlayer" parent="." unique_id=2051211840]
+stream = ExtResource("7_52ee3")
+bus = &"Sfx"
+
+[node name="PickUpGranadeSound" type="AudioStreamPlayer" parent="." unique_id=1495943576]
+stream = ExtResource("8_yoq75")
+volume_db = 10.035
+bus = &"Sfx"
+
+[node name="DashSound" type="AudioStreamPlayer" parent="." unique_id=1509091406]
+stream = ExtResource("8_megsn")
+volume_db = -7.297
+pitch_scale = 0.34
+bus = &"Sfx"
+
+[node name="PickUpHealth" type="AudioStreamPlayer" parent="." unique_id=76178283]
+stream = ExtResource("8_bhhdu")
+bus = &"Sfx"
+
+[node name="HitMarkerSound" type="AudioStreamPlayer" parent="." unique_id=775664031]
+stream = ExtResource("11_ksbbd")
+volume_db = -6.387
+bus = &"Sfx"
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=461497887]
+stream = ExtResource("12_glx4g")
+volume_db = -6.386
+autoplay = true
+bus = &"Sfx"
+parameters/looping = true
 
 [connection signal="timeout" from="ThrowTimer" to="." method="_on_throw_timer_timeout"]

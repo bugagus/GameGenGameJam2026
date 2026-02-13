@@ -1,18 +1,15 @@
 [gd_scene format=3 uid="uid://d2xqpj5he4w86"]
 
 [ext_resource type="Script" uid="uid://bsn4uwmv5jmax" path="res://Scenes/Death_melee.gd" id="1_6nwb2"]
-[ext_resource type="Texture2D" uid="uid://cnhcfa4hoeby" path="res://Assets/Sprites/ICE/Death/IMG_0493.PNG" id="1_prkst"]
 [ext_resource type="Texture2D" uid="uid://b55th0kvj3n5j" path="res://Assets/Sprites/ICE/Death/IMG_0494.PNG" id="2_6nwb2"]
 [ext_resource type="Texture2D" uid="uid://bocwxyptybd1q" path="res://Assets/Sprites/ICE/Death/IMG_0495.PNG" id="3_pl6eg"]
 [ext_resource type="Texture2D" uid="uid://cate26v6t67oi" path="res://Assets/Sprites/ICE/Death/IMG_0496.PNG" id="4_7qohy"]
 [ext_resource type="Texture2D" uid="uid://bo877bue3mt5m" path="res://Assets/Sprites/ICE/Death/IMG_0497.PNG" id="5_8tvvv"]
+[ext_resource type="AudioStream" uid="uid://dblx5uw2dqx66" path="res://Assets/Sounds/416838__tonsil5__grunt2-death-pain(1).wav" id="6_6nwb2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8u8gh"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_prkst")
-}, {
 "duration": 1.0,
 "texture": ExtResource("2_6nwb2")
 }, {
@@ -39,3 +36,8 @@ billboard = 2
 texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_8u8gh")
 autoplay = "default"
+
+[node name="DeathSound" type="AudioStreamPlayer3D" parent="." unique_id=789076853]
+stream = ExtResource("6_6nwb2")
+max_distance = 40.0
+bus = &"Sfx"

@@ -4,9 +4,11 @@ extends RigidBody3D
 @export var arm_time: float = 0.15
 @export var explosion_force: float = 0.5
 @export var max_force: int = 2
+@onready var grenade_sound: AudioStreamPlayer3D = $GrenadeSound
 
 @export var FloorMarkScene : PackedScene
 @onready var explosion_area: Area3D = $Radius
+var exploded = false
 
 var armed: bool = false
 
@@ -24,19 +26,24 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		explode()
 
 func explode() -> void:
-	var bodies = explosion_area.get_overlapping_bodies()
-	var player = get_tree().get_first_node_in_group("Player")
-	var dist = global_position.distance_to(player.global_position)
-	var final_force = explosion_force/dist
-	print(final_force)
-	if final_force > max_force:
-		final_force = max_force
-	player.vibrate_camera(final_force)
-	for obj in bodies:
-		if obj.is_in_group("Enemy"):
-			obj.death_by_granade()
-	print("Explotó granada")
-	var floor_mark = FloorMarkScene.instantiate()
-	get_tree().current_scene.add_child(floor_mark)
-	floor_mark.global_position = global_position
-	queue_free()
+	if !exploded:
+		var bodies = explosion_area.get_overlapping_bodies()
+		var player = get_tree().get_first_node_in_group("Player")
+		var dist = global_position.distance_to(player.global_position)
+		var final_force = explosion_force/dist
+		print(final_force)
+		if final_force > max_force:
+			final_force = max_force
+		player.vibrate_camera(final_force)
+		for obj in bodies:
+			if obj.is_in_group("Enemy"):
+				obj.death_by_granade()
+		print("Explotó granada")
+		var floor_mark = FloorMarkScene.instantiate()
+		get_tree().current_scene.add_child(floor_mark)
+		floor_mark.global_position = global_position
+		$GrenadeSound.play()
+		hide()
+		exploded = true
+		await grenade_sound.finished
+		queue_free()

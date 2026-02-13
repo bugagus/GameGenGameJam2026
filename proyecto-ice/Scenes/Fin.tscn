@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://bcdxd74m54v6n"]
+
+[ext_resource type="Script" uid="uid://dmbk61f3536yu" path="res://Scenes/WinScreen.gd" id="1_g1lxi"]
+[ext_resource type="Texture2D" uid="uid://8ro68tqy4ecq" path="res://Assets/Sprites/IMG_0531 (1).PNG" id="2_gfb83"]
+[ext_resource type="FontFile" uid="uid://cnc1a6n8rv7qf" path="res://Assets/Fonts/HomeVideo-BLG6G.ttf" id="3_yef54"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_gfb83"]
+font = ExtResource("3_yef54")
+font_size = 42
+
+[node name="Fin" type="Control" unique_id=1068108660]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g1lxi")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1982058265]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_gfb83")
+expand_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1319927649]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="VictorySound" type="AudioStreamPlayer2D" parent="." unique_id=473226202]
+
+[node name="Label" type="Label" parent="." unique_id=1594064038]
+layout_mode = 0
+offset_left = 747.0
+offset_top = 385.0
+offset_right = 820.0
+offset_bottom = 408.0
+text = "BACANO"
+label_settings = SubResource("LabelSettings_gfb83")

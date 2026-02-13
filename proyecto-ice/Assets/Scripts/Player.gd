@@ -6,6 +6,7 @@ extends CharacterBody3D
 const BOB_FREQ = 2.4
 const BOB_AMP = 0.08
 var t_bob = 0.0
+@onready var fade_rect: ColorRect = $"../Hud/ColorRect"
 
 const WEAPON_AMP = 4.0
 var default_weapon_pos = Vector2.ZERO
@@ -20,6 +21,9 @@ var default_hand_pos = Vector2.ZERO
 @onready var pistol: Control = $"../Hud/Pistol"
 @onready var crosshair_ui: Control = $"../Hud/Crosshair"
 @onready var flecha_guia = $Head/Camera3D/Arrow
+@onready var kid: Area3D= $"../Kid/PickupArea"
+@onready var kid_script: Kid= $"../Kid"
+@export var game_over_scene: PackedScene
 
 var is_carrying: bool = false
 var max_health : int = 100
@@ -70,14 +74,17 @@ var can_throw = true
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	health.text = "%03d/%d" % [current_health, max_health]
 	$CoyoteTimer.wait_time = coyote_frames / 60.0
 	$JumpBufferTimer.wait_time = jump_buffer_frames  / 60.0
 	default_weapon_pos = pistol.position
 	default_hand_pos = niño.position
+	flecha_guia.set_new_target(kid)
 	update_granades()
 
 func _process(delta):
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if vibration_force > 0.01:
 		camera_3d.h_offset = randf_range(-vibration_force, vibration_force)
 		camera_3d.v_offset = randf_range(-vibration_force, vibration_force)
@@ -89,6 +96,7 @@ func _process(delta):
 		shoot()
 
 func _physics_process(delta: float) -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if dead:
 		return
 	handle_gravity(delta)
@@ -165,8 +173,22 @@ func handle_gravity(delta: float) -> void:
 
 		
 func die() -> void:
-	#dead = true
-	dead = false
+	if dead: return
+	dead = true
+	
+	if fade_rect:
+		fade_rect.visible = true
+		fade_rect.color.a = 0.0
+		
+		var tween = create_tween()
+		tween.tween_property(fade_rect, "color:a", 1.0, 2.0)
+		
+		await tween.finished
+
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
+	if game_over_scene:
+		get_tree().change_scene_to_packed(game_over_scene)
 
 func take_damage(damage_taken) -> void:
 	_vibrate()
@@ -203,6 +225,8 @@ func add_health(added_health) -> void:
 	else:
 		current_health = max_health
 		cara.animation = "100"
+	if has_node("PickUpHealth"):
+		$PickUpHealth.play()   
 	health.text = "%03d/%d" % [current_health, max_health]
 	camera_animation_player.play("RESET")
 	
@@ -228,8 +252,9 @@ func shoot():
 				var damage_multiplier = 1.0 - (distance/max_shoot_distance)
 				var damage = int(max_damage * damage_multiplier)
 				ray_cast_3d.get_collider().take_damage(damage)
+				if has_node("HitMarkerSound"):
+					$HitMarkerSound.play()   
 		
-		$ShootSound.play()
 		await Anima.animation_finished
 		Anima.play("Idle")
 		can_shoot = true
@@ -271,6 +296,8 @@ func grenade_throw():
 
 func pickup_kid():
 	is_carrying = true
+	if has_node("PickUpKidSound"):
+		$PickUpKidSound.play()    
 	flecha_guia.set_new_target(zona_entrega)
 	ScoreManager.add_score(points_kid_pick)
 	TimeManager.add_time(time_kid_pick)
@@ -279,7 +306,10 @@ func pickup_kid():
 	
 func deliver_kid():
 	is_carrying = false
-	flecha_guia.set_new_target(null)
+	if has_node("DeliverSound"):
+		$DeliverSound.play()   
+	flecha_guia.set_new_target(kid)
+	kid_script.actualizar_contador()
 	ScoreManager.add_score(points_kid_delivery)
 	TimeManager.add_time(time_kid_delivery)
 	niño.play("Sin")
@@ -290,6 +320,8 @@ func _on_throw_timer_timeout() -> void:
 	
 func add_granade():
 	if granades < 3:
+		if has_node("PickUpGranadeSound"):
+			$PickUpGranadeSound.play()   
 		granades+=1
 		update_granades()
 		

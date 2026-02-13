@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://0hhycfjxl57i"]
+
+[ext_resource type="Script" uid="uid://bsn4uwmv5jmax" path="res://Scenes/Death_melee.gd" id="1_wf42x"]
+[ext_resource type="Texture2D" uid="uid://cy80q54q5y6v1" path="res://Assets/Sprites/ICE/Death_granade/IMG_0498.PNG" id="3_4lk3y"]
+[ext_resource type="Texture2D" uid="uid://bjjxuibojfl10" path="res://Assets/Sprites/ICE/Death_granade/IMG_0501.PNG" id="4_0u4ty"]
+[ext_resource type="Texture2D" uid="uid://denkfljndq2pb" path="res://Assets/Sprites/ICE/Death_granade/IMG_0502.PNG" id="5_7ly6x"]
+[ext_resource type="Texture2D" uid="uid://bxmibw1jobhue" path="res://Assets/Sprites/ICE/Death_granade/IMG_0503.PNG" id="6_aap0j"]
+[ext_resource type="Texture2D" uid="uid://y7fxldse3mml" path="res://Assets/Sprites/ICE/Death_granade/IMG_0504.PNG" id="7_dhpcu"]
+[ext_resource type="Texture2D" uid="uid://bcdeufhhdtox0" path="res://Assets/Sprites/ICE/Death_granade/IMG_0505.PNG" id="8_eciu2"]
+[ext_resource type="Texture2D" uid="uid://ces781a2g2ray" path="res://Assets/Sprites/ICE/Death_granade/IMG_0506.PNG" id="9_4ynht"]
+[ext_resource type="AudioStream" uid="uid://da4i4kix2gfr3" path="res://Assets/Sounds/Lego Break Fall Apart - Sound Effect (HD)(1).mp3" id="9_wf42x"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iokfw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4lk3y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0u4ty")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7ly6x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_aap0j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_dhpcu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_eciu2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4ynht")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="DeathGranade" type="Node3D" unique_id=557165611]
+script = ExtResource("1_wf42x")
+wait_time = 0.25
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=70114432]
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, 0, 0)
+billboard = 2
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_iokfw")
+autoplay = "default"
+frame = 6
+frame_progress = 1.0
+
+[node name="DeathSound" type="AudioStreamPlayer3D" parent="." unique_id=684063868]
+stream = ExtResource("9_wf42x")
+max_distance = 40.0
+bus = &"Sfx"

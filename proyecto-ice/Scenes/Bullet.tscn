@@ -3,9 +3,13 @@
 [ext_resource type="Script" uid="uid://b42ukjs15rtkp" path="res://Assets/Scripts/Bullet.gd" id="1_vlxeq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_14k46"]
-radius = 0.697
+radius = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vlxeq"]
+albedo_color = Color(0.012617188, 0.012617188, 0.012617188, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_qvus8"]
+material = SubResource("StandardMaterial3D_vlxeq")
 radius = 0.1
 height = 0.2
 

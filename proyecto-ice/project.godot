@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ProyectoICE"
-run/main_scene="uid://dxdpnfpvmyhwc"
+run/main_scene="uid://44av5hvkf0rq"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://Assets/Sprites/icon.svg"
 
@@ -111,3 +111,5 @@ Pause={
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

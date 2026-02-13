@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dn20gcb0s8tyb" path="res://Assets/Models/Grenade.fbx" id="1_be0jk"]
 [ext_resource type="Script" uid="uid://cimnw033e2xcv" path="res://Assets/Scripts/grenade.gd" id="1_t2ec2"]
 [ext_resource type="PackedScene" uid="uid://djxyt6i84rv1v" path="res://Scenes/FloorMark.tscn" id="2_6rbch"]
+[ext_resource type="AudioStream" uid="uid://b0eg3hykoaw6a" path="res://Assets/Sounds/244394-werra-bangexplosion-metallic_zE3BZOia_G_major__bpm_104(1).mp3" id="4_2jest"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6rbch"]
 bounce = 0.4
@@ -33,3 +34,9 @@ collision_mask = 3
 
 [node name="CollisionRadius" type="CollisionShape3D" parent="Radius" unique_id=1535344363]
 shape = SubResource("SphereShape3D_2jest")
+
+[node name="GrenadeSound" type="AudioStreamPlayer3D" parent="." unique_id=156077668]
+stream = ExtResource("4_2jest")
+volume_db = 4.486
+max_distance = 40.0
+bus = &"Sfx"

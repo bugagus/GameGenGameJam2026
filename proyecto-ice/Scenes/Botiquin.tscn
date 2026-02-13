@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ccl6buarlr4yu"]
 
 [ext_resource type="Script" uid="uid://bhvv8h5hv5rix" path="res://Scenes/Healthpack.gd" id="1_rxcpo"]
-[ext_resource type="Texture2D" uid="uid://4leb0phxs8ag" path="res://Assets/Sprites/icon.svg" id="2_vbab4"]
+[ext_resource type="Texture2D" uid="uid://dr7rf0o7g6egp" path="res://Assets/Sprites/666fcf99543169a.png" id="3_vbab4"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_14k66"]
 
@@ -9,7 +9,7 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_vbab4")
+"texture": ExtResource("3_vbab4")
 }],
 "loop": true,
 "name": &"idle",
@@ -17,6 +17,7 @@ animations = [{
 }]
 
 [node name="Botiquin" type="Area3D" unique_id=1283249824]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 script = ExtResource("1_rxcpo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=491318971]
